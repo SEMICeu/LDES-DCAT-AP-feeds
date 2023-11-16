@@ -1,0 +1,97 @@
+<pre class='metadata'>
+Title: The DCAT-AP Feed specification
+Shortname: DCAT-AP-Feeds
+Level: 1
+Status: w3c/CG-DRAFT
+Markup Shorthands: markdown yes
+URL: https://w3id.org/ldes/dcat-ap-feeds
+Repository: https://github.com/SEMICeu/LDES-DCAT-AP-feeds
+Editor: Pieter Colpaert, https://pietercolpaert.be
+Abstract:
+     This spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+</pre>
+
+
+## Publishing changes about DCAT-AP entities
+
+### Example
+
+```turtle
+@prefix : <https://data.example.org/feed> .
+@prefix ldes: <https://w3id.org/ldes#>.
+@prefix tree: <https://w3id.org/tree#>.
+@prefix as:  <https://www.w3.org/ns/activitystreams#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+
+:#Stream a ldes:EventStream ;
+    tree:member <Dataset1#Event1>, <DataService1#Event1> ;
+    ldes:timestampPath as:published ;
+    ldes:versionOfPath as:object ;
+    tree:view : .
+
+: tree:viewDescription [
+    #recommended: a retention policy to only keep the last update about a thing
+        ldes:retentionPolicy [
+            a ldes:LatestVersionSubset ;
+            ldes:amount 1    
+        ]
+    ] ;
+    # Recommended: multiple pages in a B-tree fragmentation
+    tree:relation [
+        a tree:GreaterThanOrEqualToRelation ;
+        tree:path as:published ;
+        tree:value "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+        tree:node :2020
+    ] ,
+    [
+        a tree:LessThanRelation ;
+        tree:path as:published ;
+        tree:value  "2021-01-01T00:00:00Z"^^xsd:dateTime ;
+        tree:node :2020
+    ]
+    #... More relations
+    .
+
+
+<Dataset1#Event1> a as:Create ;
+    as:object <Dataset1> ;
+    as:published "2023-10-01" .
+
+<Dataset1#Event1>  {
+    <Dataset1> a dcat:Dataset ;
+        ## The updated representation of this particular dataset
+        ## ...
+}
+```
+
+## Publishing a harverster’s event log
+
+
+### Step 1: describing the workflow of the harvester
+
+The [Smart Data Specification](https://w3id.org/sds/specification) describes how to describe the new data collection as a derived version of the harvested sources:
+
+```turtle
+##  TODO, this needs to be cleared out
+<#harvest> a p-plan:Activity;
+  p-plan:correspondsToStep <Harvesting>;
+  prov:used <streams>.
+
+<streams> a sds:Stream;
+    prov:wasGeneratedBy <LDESClient>; 
+    sds:carries sds:Member; 
+    p-plan:correspondsToVariable :stream#1;
+    ldes:harvesterLog <> ;
+    sds:dataset <LDES URI> .
+    
+<ldesServer> a p-plan:Activity;
+  p-plan:correspondsToStep <ldesStep>;
+  prov:used <streams> .
+```
+
+### Step 2: describing the harvester’s log
+
+When checking the `ldes:harvesterLog` object we can then find a process that describes the rejected elements ...
