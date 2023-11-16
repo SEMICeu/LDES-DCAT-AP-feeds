@@ -2,9 +2,9 @@
 Title: The DCAT-AP Feed specification
 Shortname: DCAT-AP-Feeds
 Level: 1
-Status: w3c/CG-DRAFT
+Status: LS
 Markup Shorthands: markdown yes
-URL: https://w3id.org/ldes/dcat-ap-feeds
+URL: https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html
 Repository: https://github.com/SEMICeu/LDES-DCAT-AP-feeds
 Editor: Pieter Colpaert, https://pietercolpaert.be
 Abstract:
