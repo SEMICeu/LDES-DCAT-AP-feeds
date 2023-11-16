@@ -12,9 +12,9 @@ Abstract:
 </pre>
 
 
-## Publishing changes about DCAT-AP entities
+# Publishing changes about DCAT-AP entities
 
-### Example
+##  Example
 
 ```turtle
 @prefix : <https://data.example.org/feed> .
@@ -67,31 +67,18 @@ Abstract:
 }
 ```
 
-## Publishing a harverster’s event log
+# Publishing a harverster’s event log
 
 
-### Step 1: describing the workflow of the harvester
+## Step 1: describing the workflow of the harvester
 
-The [Smart Data Specification](https://w3id.org/sds/specification) describes how to describe the new data collection as a derived version of the harvested sources:
+We propose using P-Plan to describe the plan in which multiple LDESes can be harvested.
 
 ```turtle
-##  TODO, this needs to be cleared out
-<#harvest> a p-plan:Activity;
-  p-plan:correspondsToStep <Harvesting>;
-  prov:used <streams>.
-
-<streams> a sds:Stream;
-    prov:wasGeneratedBy <LDESClient>; 
-    sds:carries sds:Member; 
-    p-plan:correspondsToVariable :stream#1;
-    ldes:harvesterLog <> ;
-    sds:dataset <LDES URI> .
-    
-<ldesServer> a p-plan:Activity;
-  p-plan:correspondsToStep <ldesStep>;
-  prov:used <streams> .
+#TODO
 ```
 
-### Step 2: describing the harvester’s log
+## Step 2: describing the harvester’s log
 
-When checking the `ldes:harvesterLog` object we can then find a process that describes the rejected elements ...
+On top of the `prov:Activity`, an `ldes:harvesterLog` predicate will point to the LDES of the log.
+This should point to an LDES for which all members are an `as:Activity` of adding an object or not adding an object to another LDES.
