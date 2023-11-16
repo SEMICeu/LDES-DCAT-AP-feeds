@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="0156a8f60a33581e001d4199150854b5051f526e" name="document-revision">
+  <meta content="a833969e2f3571332ff9daecf3934ebd78cc47c8" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2046,6 +2046,17 @@ Parts of this work may be from another specification document.  If so, those par
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
+    <li>
+     <a href="#publishing-changes-about-dcat-ap-entities"><span class="secno">1</span> <span class="content">Publishing changes about DCAT-AP entities</span></a>
+     <ol class="toc">
+      <li><a href="#example"><span class="secno">1.1</span> <span class="content">Example</span></a>
+     </ol>
+    <li>
+     <a href="#publishing-a-harversters-event-log"><span class="secno">2</span> <span class="content">Publishing a harverster’s event log</span></a>
+     <ol class="toc">
+      <li><a href="#step-1-describing-the-workflow-of-the-harvester"><span class="secno">2.1</span> <span class="content">Step 1: describing the workflow of the harvester</span></a>
+      <li><a href="#step-2-describing-the-harvesters-log"><span class="secno">2.2</span> <span class="content">Step 2: describing the harvester’s log</span></a>
+     </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -2055,8 +2066,8 @@ Parts of this work may be from another specification document.  If so, those par
    </ol>
   </nav>
   <main>
-   <h3 class="heading settled" id="publishing-changes-about-dcat-ap-entities"><span class="content">Publishing changes about DCAT-AP entities</span></h3>
-   <h4 class="heading settled" id="example"><span class="content">Example</span></h4>
+   <h2 class="heading settled" data-level="1" id="publishing-changes-about-dcat-ap-entities"><span class="secno">1. </span><span class="content">Publishing changes about DCAT-AP entities</span><a class="self-link" href="#publishing-changes-about-dcat-ap-entities"></a></h2>
+   <h3 class="heading settled" data-level="1.1" id="example"><span class="secno">1.1. </span><span class="content">Example</span><a class="self-link" href="#example"></a></h3>
 <pre class="language-turtle highlight"><c- k>@prefix</c-> <c- nn>:</c-> <c- g>&lt;https://data.example.org/feed></c-> <c- p>.</c->
 <c- k>@prefix</c-> <c- nn>ldes:</c-> <c- g>&lt;https://w3id.org/ldes#></c-><c- p>.</c->
 <c- k>@prefix</c-> <c- nn>tree:</c-> <c- g>&lt;https://w3id.org/tree#></c-><c- p>.</c->
@@ -2106,30 +2117,17 @@ Parts of this work may be from another specification document.  If so, those par
         <c- c>## ...</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" id="publishing-a-harversters-event-log"><span class="content">Publishing a harverster’s event log</span></h3>
-   <h4 class="heading settled" id="step-1-describing-the-workflow-of-the-harvester"><span class="content">Step 1: describing the workflow of the harvester</span></h4>
-   <p>The <a href="https://w3id.org/sds/specification">Smart Data Specification</a> describes how to describe the new data collection as a derived version of the harvested sources:</p>
-<pre class="language-turtle highlight"><c- c>##  TODO, this needs to be cleared out</c->
-<c- g>&lt;#harvest></c-> <c- b>a</c-> <c- nn>p-plan</c-><c- p>:</c-><c- f>Activity</c-><c- p>;</c->
-  <c- nn>p-plan</c-><c- p>:</c-><c- f>correspondsToStep</c-> <c- g>&lt;Harvesting></c-><c- p>;</c->
-  <c- nn>prov</c-><c- p>:</c-><c- f>used</c-> <c- g>&lt;streams></c-><c- p>.</c->
-
-<c- g>&lt;streams></c-> <c- b>a</c-> <c- nn>sds</c-><c- p>:</c-><c- f>Stream</c-><c- p>;</c->
-    <c- nn>prov</c-><c- p>:</c-><c- f>wasGeneratedBy</c-> <c- g>&lt;LDESClient></c-><c- p>;</c-> 
-    <c- nn>sds</c-><c- p>:</c-><c- f>carries</c-> <c- nn>sds</c-><c- p>:</c-><c- f>Member</c-><c- p>;</c-> 
-    <c- nn>p-plan</c-><c- p>:</c-><c- f>correspondsToVariable</c-> <c- p>:</c-><c- f>stream</c-><c- c>#1;</c->
-    <c- nn>ldes</c-><c- p>:</c-><c- f>harvesterLog</c-> <c- g>&lt;></c-> <c- p>;</c->
-    <c- nn>sds</c-><c- p>:</c-><c- f>dataset</c-> &lt;LDES URI> <c- p>.</c->
-    
-<c- g>&lt;ldesServer></c-> <c- b>a</c-> <c- nn>p-plan</c-><c- p>:</c-><c- f>Activity</c-><c- p>;</c->
-  <c- nn>p-plan</c-><c- p>:</c-><c- f>correspondsToStep</c-> <c- g>&lt;ldesStep></c-><c- p>;</c->
-  <c- nn>prov</c-><c- p>:</c-><c- f>used</c-> <c- g>&lt;streams></c-> <c- p>.</c->
+   <h2 class="heading settled" data-level="2" id="publishing-a-harversters-event-log"><span class="secno">2. </span><span class="content">Publishing a harverster’s event log</span><a class="self-link" href="#publishing-a-harversters-event-log"></a></h2>
+   <h3 class="heading settled" data-level="2.1" id="step-1-describing-the-workflow-of-the-harvester"><span class="secno">2.1. </span><span class="content">Step 1: describing the workflow of the harvester</span><a class="self-link" href="#step-1-describing-the-workflow-of-the-harvester"></a></h3>
+   <p>We propose using P-Plan to describe the plan in which multiple LDESes can be harvested.</p>
+<pre class="language-turtle highlight"><c- c>#TODO</c->
 </pre>
-   <h4 class="heading settled" id="step-2-describing-the-harvesters-log"><span class="content">Step 2: describing the harvester’s log</span></h4>
-   <p>When checking the <code>ldes:harvesterLog</code> object we can then find a process that describes the rejected elements ...</p>
+   <h3 class="heading settled" data-level="2.2" id="step-2-describing-the-harvesters-log"><span class="secno">2.2. </span><span class="content">Step 2: describing the harvester’s log</span><a class="self-link" href="#step-2-describing-the-harvesters-log"></a></h3>
+   <p>On top of the <code>prov:Activity</code>, an <code>ldes:harvesterLog</code> predicate will point to the LDES of the log.
+This should point to an LDES for which all members are an <code>as:Activity</code> of adding an object or not adding an object to another LDES.</p>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span></h2>
+   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
    <p> Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
             The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
             in the normative parts of this document
@@ -2274,8 +2272,8 @@ Parts of this work may be from another specification document.  If so, those par
 
 })();
 </script>
-  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span></h2>
-  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span></h3>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
