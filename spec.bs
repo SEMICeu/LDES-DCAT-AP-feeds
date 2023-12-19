@@ -23,7 +23,7 @@ A DCAT-AP Feed MUST be published using either `application/ld+json` or `applicat
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.
 
-DCAT-AP Feeds uses the [[!ActivityStreams]] vocabulary to indicate the type of change.
+DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
 Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph, and a Remove.
 These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
 
