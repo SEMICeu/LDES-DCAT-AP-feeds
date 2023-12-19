@@ -6,7 +6,9 @@ Status: LS
 Markup Shorthands: markdown yes
 URL: https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html
 Repository: https://github.com/SEMICeu/LDES-DCAT-AP-feeds
-Editor: Pieter Colpaert, https://pietercolpaert.be
+Editor: 
+ - Pieter Colpaert, https://pietercolpaert.be
+ - Matthias Palmér
 Abstract:
      This spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
 </pre>
@@ -14,7 +16,132 @@ Abstract:
 
 # Publishing changes about DCAT-AP entities
 
-##  Example
+Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
+With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog in a harvester, and always keep it in-sync in the way that is intended by the publisher.
+
+A DCAT-AP Feed MUST be published using either `application/ld+json` or `application/trig` and it MUST set the `Content-Type` header accordingly.
+In this spec, examples are provided for both serializations.
+Through content negotiation, other formats MAY be provided.
+
+DCAT-AP Feeds uses the [[!ActivityStreams]] vocabulary to indicate the type of change.
+Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph, and a Remove.
+These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
+
+When one of these are not available:
+ * The type: then we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create
+ * `published`: when no timestamp is included, a consumer MUST keep a list of all processed members to not process an already processed one again. Published can however only be omitted in the case of a LatestVersionSubset (see retention policies).
+
+All activities are immutable: once published one cannot alter the same member again.
+Each activity MUST be a member of an append-only change log or event stream typed `EventStream`, that MUST be given an IRI.
+This `EventStream` is the DCAT-AP Feed that conforms to the Linked Data Event Stream specification.
+On a DCAT-AP Feed, the `timestampPath` MUST be set to `published`, unless the publisher knows what they are doing, or when the timestamp cannot be provided.
+The `versionOfPath` MUST be set to object.
+This configures the property that will be used to point to the entity that is being altered.
+
+A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.
+
+<div class="example">
+A JSON-LD example:
+```json
+{
+    "@context" : "TODO",
+    "@id": "#Feed",
+    "@type": "EventStream",
+    "title": "My DCAT-AP Feed",
+    "timestampPath": "published",
+    "versionOfPath": "object",
+    "view": {
+        "@id": "",
+        "comment": "in this object we will be able to add more specific info about this page or view"
+    },
+    "member": [
+        {
+            "@id": "https://example.org/Dataset1#Event1",
+            "@type": "Create",
+            "object": "https://example.org/Dataset1",
+            "published" : "2023-10-01T12:00:00Z",
+            "@graph": {
+                "@id": "https://example.org/Dataset1",
+                "@type": "Dataset",
+                "comment": "Everything in here is the actual data that needs to be upserted"
+            }
+        },
+        {
+            "@id": "https://example.org/Dataset1#Event2",
+            "@type": "Remove",
+            "object": "https://example.org/Dataset1",
+            "published" : "2023-10-01T13:00:00Z"
+        }
+    ]
+}
+```
+Or the same data in TRiG:
+```turtle
+<#Feed> a ldes:EventStream ;
+        dct:title "My DCAT-AP Feed" ;
+        ldes:timestampPath published ;
+        # The current page can be used to view this event stream
+        tree:view <> ; # See pagination and retention policies for extra controls we will be able to describe here
+        tree:member <https://example.org/Dataset1#Event1>, <https://example.org/Dataset1#Event2> .
+
+# This member is further described in the default graph 
+<https://example.org/Dataset1#Event1> a as:Create ;
+    as:object <https://example.org/Dataset1> ;
+    as:published "2023-10-01T12:00:00Z"^^xsd:dateTime .
+
+<https://example.org/Dataset1#Event1>  {
+    <https://example.org/Dataset1> a dcat:Dataset ;
+        ## The (updated) representation of this particular dataset
+        ## ...
+}
+<https://example.org/Dataset1#Event2> a as:Remove ;
+    as:object <https://example.org/Dataset1> ;
+    as:published "2023-10-01T13:00:00Z"^^xsd:dateTime .
+```
+</div>
+
+## Retention policies ## {:retention-policies}
+
+Without further explanation, a server publishing a Linked Data Event Stream such as a DCAT-AP feed, is considered to keep the full history of all elements.
+On the one hand, a harvester will be most interested in the latest state of the data catalog, thus intermediary updates are not useful.
+On the other hand, some systems are currently already in place and may currently not archive or keep historic events.
+Therefore, we propose a recommended retention policy in 1, and provide potential solutions for when removals cannot or only partially be retrieved from the back-end system in 2 and 3.
+ 1. Provide the full history, and are only able to give the latest version; (recommended)
+ 2. Not providing a list of removed activities (not recommended)
+ 3. Keeping a partial list of removed activities
+
+### LatestVersionSubset
+
+By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.
+
+<div class="example">
+```turtle
+<> ldes:retentionPolicy [
+        a ldes:LatestVersionSubset ;
+        ldes:amount 1    
+    ] .
+```
+</div>
+
+### Without Remove Activities
+
+When this retention policy is in place, a harvester MUST check for implicit removals.
+
+_TODO_
+
+### Partial remove activities
+
+The list of removed datasets can get quite big in the long run without big benefits.
+You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
+but publish all latest version of anything else.
+
+## Pagination ## {:pagination}
+
+TODO:
+ * Strategies
+ * Caching headers!
+
+<div class="example">
 
 ```turtle
 @prefix : <https://data.example.org/feed> .
@@ -55,30 +182,10 @@ Abstract:
     #... More relations
     .
 
-
-<Dataset1#Event1> a as:Create ;
-    as:object <Dataset1> ;
-    as:published "2023-10-01" .
-
-<Dataset1#Event1>  {
-    <Dataset1> a dcat:Dataset ;
-        ## The updated representation of this particular dataset
-        ## ...
-}
 ```
+</div>
+
 
 # Publishing a harverster’s event log
 
-
-## Step 1: describing the workflow of the harvester
-
-We propose using P-Plan to describe the plan in which multiple LDESes can be harvested.
-
-```turtle
-#TODO
-```
-
-## Step 2: describing the harvester’s log
-
-On top of the `prov:Activity`, an `ldes:harvesterLog` predicate will point to the LDES of the log.
-This should point to an LDES for which all members are an `as:Activity` of adding an object or not adding an object to another LDES.
+Discussions on harvester status notifications yet need to start. Planned in Q1 2024.
