@@ -23,11 +23,18 @@ In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.
 
 DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
-Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph in harvester, and a Remove, that is intended for the removal of previously created or updated set of quads.
-These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
+Three type of activities can be described: 
+ * a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and 
+ * a Remove (iii), that is intended for the removal of previously created or updated set of quads.
+
+These activities MUST provide using the property `object` an IRI of the DCAT-AP entity (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
+The activity MUST be identified using an IRI.
+The payload of the DCAT-AP entity MUST be provided in the named graph with the activity IRI as the graph.
+
+Note: When a harvester processes the set of quads in the named graph, it can create or replace all quads in a named graph of the DCAT-AP entity, whom’s IRI then possible is a concatenation of the entity IRI with the LDES IRI in order to ensure that multiple representations of the DCAT-AP entities from various sources can be provided.
 
 Fall-backs for when one of these optional properties are not available:
- * The type: then we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create
+ * The type: cfr. [[!activitypub]], we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create
  * `published`: when no timestamp is included, a consumer MUST keep a list of all processed members to not process an already processed one again. Published can however only be omitted in the case of a LatestVersionSubset (see retention policies).
 
 All activities are immutable: once published one cannot alter the same member again.
