@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="bfebbac6e6c4fb82fe58e3ab81b33d2c09929814" name="document-revision">
+  <meta content="b74c70bcd9fd1d59984e3f72ed66086fc72b5db2" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2018,7 +2018,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">The DCAT-AP Feed specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2023-12-19">19 December 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2023-12-20">20 December 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2034,7 +2034,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 19 December 2023,
+In addition, as of 20 December 2023,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2049,18 +2049,18 @@ Parts of this work may be from another specification document.  If so, those par
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
     <li>
-     <a href="#publishing-changes-about-dcat-ap-entities"><span class="secno">1</span> <span class="content">Publishing changes about DCAT-AP entities</span></a>
+     <a href="#feed"><span class="secno">1</span> <span class="content">Publishing changes about DCAT-AP entities</span></a>
      <ol class="toc">
       <li>
-       <a href="#retention-policies--retention-policies"><span class="secno">1.1</span> <span class="content">Retention policies ## {:retention-policies}</span></a>
+       <a href="#retention-policies"><span class="secno">1.1</span> <span class="content">Retention policies</span></a>
        <ol class="toc">
-        <li><a href="#latestversionsubset"><span class="secno">1.1.1</span> <span class="content">LatestVersionSubset</span></a>
-        <li><a href="#without-remove-activities"><span class="secno">1.1.2</span> <span class="content">Without Remove Activities</span></a>
-        <li><a href="#partial-remove-activities"><span class="secno">1.1.3</span> <span class="content">Partial remove activities</span></a>
+        <li><a href="#latest-version"><span class="secno">1.1.1</span> <span class="content">LatestVersionSubset</span></a>
+        <li><a href="#without-removes"><span class="secno">1.1.2</span> <span class="content">Without Remove Activities</span></a>
+        <li><a href="#some-removes"><span class="secno">1.1.3</span> <span class="content">Partial remove activities</span></a>
        </ol>
-      <li><a href="#pagination--pagination"><span class="secno">1.2</span> <span class="content">Pagination ## {:pagination}</span></a>
+      <li><a href="#pagination"><span class="secno">1.2</span> <span class="content">Pagination</span></a>
      </ol>
-    <li><a href="#publishing-a-harversters-event-log"><span class="secno">2</span> <span class="content">Publishing a harverster’s event log</span></a>
+    <li><a href="#harverster-log"><span class="secno">2</span> <span class="content">Publishing a harverster’s event log</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -2070,7 +2070,7 @@ Parts of this work may be from another specification document.  If so, those par
    </ol>
   </nav>
   <main>
-   <h2 class="heading settled" data-level="1" id="publishing-changes-about-dcat-ap-entities"><span class="secno">1. </span><span class="content">Publishing changes about DCAT-AP entities</span><a class="self-link" href="#publishing-changes-about-dcat-ap-entities"></a></h2>
+   <h2 class="heading settled" data-level="1" id="feed"><span class="secno">1. </span><span class="content">Publishing changes about DCAT-AP entities</span><a class="self-link" href="#feed"></a></h2>
    <p>Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
 With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog in a harvester, and always keep it in-sync in the way that is intended by the publisher.</p>
    <p>A DCAT-AP Feed MUST be published using either <code>application/ld+json</code> or <code>application/trig</code> and it MUST set the <code>Content-Type</code> header accordingly.
@@ -2150,7 +2150,7 @@ This configures the property that will be used to point to the entity that is be
     <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- s>"2023-10-01T13:00:00Z"</c-><c- p>^^</c-><c- nn>xsd</c-><c- p>:</c-><c- f>dateTime</c-> <c- p>.</c->
 </pre>
    </div>
-   <h3 class="heading settled" data-level="1.1" id="retention-policies--retention-policies"><span class="secno">1.1. </span><span class="content">Retention policies ## {:retention-policies}</span><a class="self-link" href="#retention-policies--retention-policies"></a></h3>
+   <h3 class="heading settled" data-level="1.1" id="retention-policies"><span class="secno">1.1. </span><span class="content">Retention policies</span><a class="self-link" href="#retention-policies"></a></h3>
    <p>Without further explanation, a server publishing a Linked Data Event Stream such as a DCAT-AP feed, is considered to keep the full history of all elements.
 On the one hand, a harvester will be most interested in the latest state of the data catalog, thus intermediary updates are not useful.
 On the other hand, some systems are currently already in place and may currently not archive or keep historic events.
@@ -2163,7 +2163,7 @@ Therefore, we propose a recommended retention policy in 1, and provide potential
     <li data-md>
      <p>Keeping a partial list of removed activities</p>
    </ol>
-   <h4 class="heading settled" data-level="1.1.1" id="latestversionsubset"><span class="secno">1.1.1. </span><span class="content">LatestVersionSubset</span><a class="self-link" href="#latestversionsubset"></a></h4>
+   <h4 class="heading settled" data-level="1.1.1" id="latest-version"><span class="secno">1.1.1. </span><span class="content">LatestVersionSubset</span><a class="self-link" href="#latest-version"></a></h4>
    <p>By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.</p>
    <div class="example" id="example-c4818a9e">
     <a class="self-link" href="#example-c4818a9e"></a> 
@@ -2173,14 +2173,14 @@ Therefore, we propose a recommended retention policy in 1, and provide potential
     <c- p>]</c-> <c- p>.</c->
 </pre>
    </div>
-   <h4 class="heading settled" data-level="1.1.2" id="without-remove-activities"><span class="secno">1.1.2. </span><span class="content">Without Remove Activities</span><a class="self-link" href="#without-remove-activities"></a></h4>
+   <h4 class="heading settled" data-level="1.1.2" id="without-removes"><span class="secno">1.1.2. </span><span class="content">Without Remove Activities</span><a class="self-link" href="#without-removes"></a></h4>
    <p>When this retention policy is in place, a harvester MUST check for implicit removals.</p>
    <p>_TODO_</p>
-   <h4 class="heading settled" data-level="1.1.3" id="partial-remove-activities"><span class="secno">1.1.3. </span><span class="content">Partial remove activities</span><a class="self-link" href="#partial-remove-activities"></a></h4>
+   <h4 class="heading settled" data-level="1.1.3" id="some-removes"><span class="secno">1.1.3. </span><span class="content">Partial remove activities</span><a class="self-link" href="#some-removes"></a></h4>
    <p>The list of removed datasets can get quite big in the long run without big benefits.
 You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
 but publish all latest version of anything else.</p>
-   <h3 class="heading settled" data-level="1.2" id="pagination--pagination"><span class="secno">1.2. </span><span class="content">Pagination ## {:pagination}</span><a class="self-link" href="#pagination--pagination"></a></h3>
+   <h3 class="heading settled" data-level="1.2" id="pagination"><span class="secno">1.2. </span><span class="content">Pagination</span><a class="self-link" href="#pagination"></a></h3>
    <p>TODO:</p>
    <ul>
     <li data-md>
@@ -2229,7 +2229,7 @@ but publish all latest version of anything else.</p>
     <c- p>.</c->
 </pre>
    </div>
-   <h2 class="heading settled" data-level="2" id="publishing-a-harversters-event-log"><span class="secno">2. </span><span class="content">Publishing a harverster’s event log</span><a class="self-link" href="#publishing-a-harversters-event-log"></a></h2>
+   <h2 class="heading settled" data-level="2" id="harverster-log"><span class="secno">2. </span><span class="content">Publishing a harverster’s event log</span><a class="self-link" href="#harverster-log"></a></h2>
    <p>Discussions on harvester status notifications yet need to start. Planned in Q1 2024.</p>
   </main>
   <div data-fill-with="conformance">
