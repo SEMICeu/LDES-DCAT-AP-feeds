@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="978f9936bbf14a5e349e9fd05236de7abfeb8407" name="document-revision">
+  <meta content="166e48089b5f8df35ff1dfb4e789e3ee2e6cf69f" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2025,6 +2025,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dd><a class="u-url" href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html">https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html</a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/SEMICeu/LDES-DCAT-AP-feeds/issues/">GitHub</a>
+     <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><span class="p-name fn"></span>
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://pietercolpaert.be">- Pieter Colpaert</a>
@@ -2071,6 +2072,7 @@ Parts of this work may be from another specification document.  If so, those par
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
      </ol>
+    <li><a href="#issues-index"><span class="secno"></span> <span class="content">Issues Index</span></a>
    </ol>
   </nav>
   <main>
@@ -2186,11 +2188,12 @@ Therefore, we propose a recommended retention policy in 1, and provide potential
    </div>
    <h4 class="heading settled" data-level="1.1.2" id="without-removes"><span class="secno">1.1.2. </span><span class="content">Without Remove Activities</span><a class="self-link" href="#without-removes"></a></h4>
    <p>When this retention policy is in place, a harvester MUST check for implicit removals.</p>
-   <p>_TODO_</p>
+   <p class="issue" id="issue-f5ad6ec3"><a class="self-link" href="#issue-f5ad6ec3"></a> A <code>ldes:ImplicitRemovalPolicy</code> has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50</p>
    <h4 class="heading settled" data-level="1.1.3" id="some-removes"><span class="secno">1.1.3. </span><span class="content">Partial remove activities</span><a class="self-link" href="#some-removes"></a></h4>
    <p>The list of removed datasets can get quite big in the long run without big benefits.
 You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
 but publish all latest version of anything else.</p>
+   <p class="issue" id="issue-b74a56e6"><a class="self-link" href="#issue-b74a56e6"></a> This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50</p>
    <h3 class="heading settled" data-level="1.2" id="pagination"><span class="secno">1.2. </span><span class="content">Pagination</span><a class="self-link" href="#pagination"></a></h3>
    <p>TODO:</p>
    <ul>
@@ -2399,3 +2402,8 @@ but publish all latest version of anything else.</p>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
+  <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
+  <div style="counter-reset:issue">
+   <div class="issue"> A <code>ldes:ImplicitRemovalPolicy</code> has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50 <a class="issue-return" href="#issue-f5ad6ec3" title="Jump to section">↵</a></div>
+   <div class="issue"> This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50 <a class="issue-return" href="#issue-b74a56e6" title="Jump to section">↵</a></div>
+  </div>
