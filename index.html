@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="b74c70bcd9fd1d59984e3f72ed66086fc72b5db2" name="document-revision">
+  <meta content="62cb5b733070e22653ce4f07dcfee1983bcb4e51" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2042,7 +2042,11 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.</p>
+   <p>Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
+
+    With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
+    Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+    It also provides a specification for harvesters to provide transparency into their harvesting progress.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
@@ -2071,15 +2075,13 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="feed"><span class="secno">1. </span><span class="content">Publishing changes about DCAT-AP entities</span><a class="self-link" href="#feed"></a></h2>
-   <p>Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
-With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog in a harvester, and always keep it in-sync in the way that is intended by the publisher.</p>
    <p>A DCAT-AP Feed MUST be published using either <code>application/ld+json</code> or <code>application/trig</code> and it MUST set the <code>Content-Type</code> header accordingly.
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.</p>
    <p>DCAT-AP Feeds uses the <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[activitystreams-vocabulary]</a> to indicate the type of change.
-Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph, and a Remove.
+Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph in harvester, and a Remove, that is intended for the removal of previously created or updated set of quads.
 These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a <code>published</code> property with an <code>xsd:dateTime</code> datatype, and SHOULD provide a type.</p>
-   <p>When one of these are not available:</p>
+   <p>Fall-backs for when one of these optional properties are not available:</p>
    <ul>
     <li data-md>
      <p>The type: then we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create</p>
@@ -2151,7 +2153,7 @@ This configures the property that will be used to point to the entity that is be
 </pre>
    </div>
    <h3 class="heading settled" data-level="1.1" id="retention-policies"><span class="secno">1.1. </span><span class="content">Retention policies</span><a class="self-link" href="#retention-policies"></a></h3>
-   <p>Without further explanation, a server publishing a Linked Data Event Stream such as a DCAT-AP feed, is considered to keep the full history of all elements.
+   <p>Without further explanation, a server publishing a Linked Data Event Stream (LDES) such as a DCAT-AP feed, is considered to keep the full history of all elements.
 On the one hand, a harvester will be most interested in the latest state of the data catalog, thus intermediary updates are not useful.
 On the other hand, some systems are currently already in place and may currently not archive or keep historic events.
 Therefore, we propose a recommended retention policy in 1, and provide potential solutions for when removals cannot or only partially be retrieved from the back-end system in 2 and 3.</p>
