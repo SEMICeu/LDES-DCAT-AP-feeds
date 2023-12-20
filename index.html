@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="62cb5b733070e22653ce4f07dcfee1983bcb4e51" name="document-revision">
+  <meta content="978f9936bbf14a5e349e9fd05236de7abfeb8407" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2079,12 +2079,21 @@ Parts of this work may be from another specification document.  If so, those par
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.</p>
    <p>DCAT-AP Feeds uses the <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[activitystreams-vocabulary]</a> to indicate the type of change.
-Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph in harvester, and a Remove, that is intended for the removal of previously created or updated set of quads.
-These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a <code>published</code> property with an <code>xsd:dateTime</code> datatype, and SHOULD provide a type.</p>
+Three type of activities can be described:</p>
+   <ul>
+    <li data-md>
+     <p>a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and</p>
+    <li data-md>
+     <p>a Remove (iii), that is intended for the removal of previously created or updated set of quads.</p>
+   </ul>
+   <p>These activities MUST provide using the property <code>object</code> an IRI of the DCAT-AP entity (this thus cannot be a blank node), SHOULD come with a <code>published</code> property with an <code>xsd:dateTime</code> datatype, and SHOULD provide a type.
+The activity MUST be identified using an IRI.
+The payload of the DCAT-AP entity MUST be provided in the named graph with the activity IRI as the graph.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> When a harvester processes the set of quads in the named graph, it can create or replace all quads in a named graph of the DCAT-AP entity, whom’s IRI then possible is a concatenation of the entity IRI with the LDES IRI in order to ensure that multiple representations of the DCAT-AP entities from various sources can be provided.</p>
    <p>Fall-backs for when one of these optional properties are not available:</p>
    <ul>
     <li data-md>
-     <p>The type: then we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create</p>
+     <p>The type: cfr. <a data-link-type="biblio" href="#biblio-activitypub" title="ActivityPub">[activitypub]</a>, we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create</p>
     <li data-md>
      <p><code>published</code>: when no timestamp is included, a consumer MUST keep a list of all processed members to not process an already processed one again. Published can however only be omitted in the case of a LatestVersionSubset (see retention policies).</p>
    </ul>
@@ -2383,6 +2392,8 @@ but publish all latest version of anything else.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-activitypub">[ACTIVITYPUB]
+   <dd>Christopher Webber; Jessica Tallon. <a href="https://w3c.github.io/activitypub/"><cite>ActivityPub</cite></a>. URL: <a href="https://w3c.github.io/activitypub/">https://w3c.github.io/activitypub/</a>
    <dt id="biblio-activitystreams-vocabulary">[ACTIVITYSTREAMS-VOCABULARY]
    <dd>James Snell; Evan Prodromou. <a href="https://w3c.github.io/activitystreams/vocabulary/"><cite>Activity Vocabulary</cite></a>. URL: <a href="https://w3c.github.io/activitystreams/vocabulary/">https://w3c.github.io/activitystreams/vocabulary/</a>
    <dt id="biblio-rfc2119">[RFC2119]
