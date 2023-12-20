@@ -14,7 +14,7 @@ Abstract:
 </pre>
 
 
-# Publishing changes about DCAT-AP entities
+# Publishing changes about DCAT-AP entities # {#feed}
 
 Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
 With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog in a harvester, and always keep it in-sync in the way that is intended by the publisher.
@@ -100,7 +100,7 @@ Or the same data in TRiG:
 ```
 </div>
 
-## Retention policies ## {:retention-policies}
+## Retention policies ## {#retention-policies}
 
 Without further explanation, a server publishing a Linked Data Event Stream such as a DCAT-AP feed, is considered to keep the full history of all elements.
 On the one hand, a harvester will be most interested in the latest state of the data catalog, thus intermediary updates are not useful.
@@ -110,7 +110,7 @@ Therefore, we propose a recommended retention policy in 1, and provide potential
  2. Not providing a list of removed activities (not recommended)
  3. Keeping a partial list of removed activities
 
-### LatestVersionSubset
+### LatestVersionSubset ### {#latest-version}
 
 By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.
 
@@ -123,19 +123,20 @@ By adding a latest version subset retention policy, we will allow for only the l
 ```
 </div>
 
-### Without Remove Activities
+### Without Remove Activities ### {#without-removes}
+
 
 When this retention policy is in place, a harvester MUST check for implicit removals.
 
 _TODO_
 
-### Partial remove activities
+### Partial remove activities ### {#some-removes}
 
 The list of removed datasets can get quite big in the long run without big benefits.
 You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
 but publish all latest version of anything else.
 
-## Pagination ## {:pagination}
+## Pagination ## {#pagination}
 
 TODO:
  * Strategies
@@ -186,6 +187,6 @@ TODO:
 </div>
 
 
-# Publishing a harverster’s event log
+# Publishing a harverster’s event log # {#harverster-log}
 
 Discussions on harvester status notifications yet need to start. Planned in Q1 2024.
