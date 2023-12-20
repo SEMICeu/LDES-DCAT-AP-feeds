@@ -131,16 +131,17 @@ By adding a latest version subset retention policy, we will allow for only the l
 
 ### Without Remove Activities ### {#without-removes}
 
-
 When this retention policy is in place, a harvester MUST check for implicit removals.
 
-_TODO_
+Issue: A `ldes:ImplicitRemovalPolicy` has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
 
 ### Partial remove activities ### {#some-removes}
 
 The list of removed datasets can get quite big in the long run without big benefits.
 You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
 but publish all latest version of anything else.
+
+Issue: This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
 
 ## Pagination ## {#pagination}
 
