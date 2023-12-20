@@ -10,24 +10,23 @@ Editor:
  - Pieter Colpaert, https://pietercolpaert.be
  - Matthias Palmér
 Abstract:
-     This spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+    Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
+    With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
+    Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+    It also provides a specification for harvesters to provide transparency into their harvesting progress.
 </pre>
 
-
 # Publishing changes about DCAT-AP entities # {#feed}
-
-Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
-With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog in a harvester, and always keep it in-sync in the way that is intended by the publisher.
 
 A DCAT-AP Feed MUST be published using either `application/ld+json` or `application/trig` and it MUST set the `Content-Type` header accordingly.
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.
 
 DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
-Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph, and a Remove.
+Three type of activities can be described: a Create and an Update, both upserting a set of quads packaged in a named graph in harvester, and a Remove, that is intended for the removal of previously created or updated set of quads.
 These activities MUST provide an object IRI (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
 
-When one of these are not available:
+Fall-backs for when one of these optional properties are not available:
  * The type: then we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create
  * `published`: when no timestamp is included, a consumer MUST keep a list of all processed members to not process an already processed one again. Published can however only be omitted in the case of a LatestVersionSubset (see retention policies).
 
@@ -102,7 +101,7 @@ Or the same data in TRiG:
 
 ## Retention policies ## {#retention-policies}
 
-Without further explanation, a server publishing a Linked Data Event Stream such as a DCAT-AP feed, is considered to keep the full history of all elements.
+Without further explanation, a server publishing a Linked Data Event Stream (LDES) such as a DCAT-AP feed, is considered to keep the full history of all elements.
 On the one hand, a harvester will be most interested in the latest state of the data catalog, thus intermediary updates are not useful.
 On the other hand, some systems are currently already in place and may currently not archive or keep historic events.
 Therefore, we propose a recommended retention policy in 1, and provide potential solutions for when removals cannot or only partially be retrieved from the back-end system in 2 and 3.
