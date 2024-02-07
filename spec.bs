@@ -44,7 +44,9 @@ This configures the property that will be used to point to the entity that is be
 A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.
 
 <div class="example">
+
 A JSON-LD example:
+
 ```json
 {
     "@context" : "TODO",
@@ -78,7 +80,9 @@ A JSON-LD example:
     ]
 }
 ```
+
 Or the same data in TRiG:
+
 ```turtle
 <#Feed> a ldes:EventStream ;
         dct:title "My DCAT-AP Feed" ;
@@ -101,6 +105,7 @@ Or the same data in TRiG:
     as:object <https://example.org/Dataset1> ;
     as:published "2023-10-01T13:00:00Z"^^xsd:dateTime .
 ```
+
 </div>
 
 A DCAT-AP Feed MUST be published using either `application/ld+json` or `application/trig` and it MUST set the `Content-Type` header accordingly.
@@ -109,7 +114,56 @@ Through content negotiation, other formats MAY be provided.
 
 ## Entity types ## {#types}
 
-Issue: TODO
+In DCAT-AP2.2 entity types are divided into main and supportive entity types based on their importance in the application profile. In LDES we need to make a slightly different division based on how they appear in the event stream. We will refer to the following three kind of entity types:
+
+1. Standalone - these entities will appear in the event stream.
+2. Embedded - these entities will always be provided as part of standalone entities.
+3. Referenced - these entities are never described with triples, they are only referred to via their URIs.
+
+Note: LDES feed publishers should not add references to standalone entities before they have been added. Conversely, when removing entities all references should be removed first.
+
+Note: Any dcat:CatalogRecord entities can be provided as part the dcat:Dataset entity. Alternatively, and perhaps more appropriately, the event itself could be seen as an dcat:CatalogRecord with modification date and other useful information.
+
+
+### Standalone entities
+The main entity types are identified based on their class:
+
+* dcat:Catalog
+* dcat:Dataset
+* dcat:Distribution
+* dcat:DataService
+* foaf:Agent
+* vcard:Kind
+* dcterms:LicenseDocument - only use this when you need to define licenses that are not well known.
+
+### Embedded entities
+The embedded entity types are identified based on their class:
+
+* spdx:Checksum
+* dcterms:Location
+* locn:Geometry
+* dcat:Relationship
+* prov:Activity
+* dcat:Attribution
+* spdx:ChecksumAlgorithm
+* foaf:Document
+* adms:Identifier
+
+### Referenced entities
+The referenced entity types are identified based on the properties that point to them:
+
+* dct:license pointing to entities that are expected to be typed as dcterms:LicenseDocument.
+* a range of different properties pointing to skos:Concept (TODO, check which)
+* dcat:themeTaxonomy pointing to an instance of skos:ConceptScheme
+* dcterms:accrualPeriodicity pointing to dcterms:Frequency (or just a skos:Concept)
+* dcterm:language pointing to an instance of dcterms:LinguisticSystem
+* dcterms:format, dcat:mediaType, dcat:packageFormat or dcat:compressFormat pointing to a dcterms:MediaType instance
+* dcterms:temporal pointing to a dcterms:PeriodOrTime instance
+* odrl:hasPolicy pointing to a odrl:Policy instance
+* dcterms:provenance pointing to a dcterms:ProvenanceStatement instance
+* dcterms:rights pointing to an instance of dcterms:RightsStatement
+* dcat:hadRole pointing to a dcat:Role instance
+* dcterms:conformsTo pointing to a dcterms:Standard instance
 
 ## Retention policies ## {#retention-policies}
 
@@ -131,12 +185,14 @@ This is documented in [](#some-removes).
 By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.
 
 <div class="example">
+
 ```turtle
 <> ldes:retentionPolicy [
         a ldes:LatestVersionSubset ;
         ldes:amount 1    
     ] .
 ```
+
 </div>
 
 ### Without Remove Activities ### {#without-removes}
