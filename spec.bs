@@ -18,11 +18,11 @@ Abstract:
 
 # Publishing changes about DCAT-AP entities # {#feed}
 
-A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Removes in it about the DCAT-AP entities in a catalog.
+A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Deletes in it about the DCAT-AP entities in a catalog.
 DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
 Three type of activities can be described: 
  * a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and 
- * a Remove (iii), that is intended for the removal of previously created or updated set of quads.
+ * a Delete (iii), that is intended for the deletion of previously created or updated set of quads.
 
 These activities MUST provide using the property `object` an IRI of the DCAT-AP entity (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
 The activity MUST be identified using an IRI.
@@ -73,7 +73,7 @@ A JSON-LD example:
         },
         {
             "@id": "https://example.org/Dataset1#Event2",
-            "@type": "Remove",
+            "@type": "Delete",
             "object": "https://example.org/Dataset1",
             "published" : "2023-10-01T13:00:00Z"
         }
@@ -101,7 +101,7 @@ Or the same data in TRiG:
         ## The (updated) representation of this particular dataset
         ## ...
 }
-<https://example.org/Dataset1#Event2> a as:Remove ;
+<https://example.org/Dataset1#Event2> a as:Delete ;
     as:object <https://example.org/Dataset1> ;
     as:published "2023-10-01T13:00:00Z"^^xsd:dateTime .
 ```
@@ -177,10 +177,10 @@ In this case, it will be impossible to probide the remove activities.
 While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy documented in [](#without-removes).
 
 Having to keep remove activities indefinetily will be difficult after a long period of time. 
-Therefore a third retention policy can be put in place in order to say that removals are not kept in the feed after a certain period of time.
+Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
 This is documented in [](#some-removes).
 
-### LatestVersionSubset with removals ### {#latest-version}
+### LatestVersionSubset with deletions ### {#latest-version}
 
 By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.
 
@@ -195,11 +195,11 @@ By adding a latest version subset retention policy, we will allow for only the l
 
 </div>
 
-### Without Remove Activities ### {#without-removes}
+### Without Delete Activities ### {#without-deleted}
 
-When this retention policy is in place, a harvester MUST check for implicit removals.
+When this retention policy is in place, a harvester MUST check for implicit deletions.
 
-Issue: A `ldes:ImplicitRemovalPolicy` has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
+Issue: A `ldes:ImplicitDeletionPolicy` has been proposed that will force LDES clients to check for deleted members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
 
 ### Partial remove activities ### {#some-removes}
 
