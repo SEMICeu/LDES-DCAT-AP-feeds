@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="d14e9ba384ee6508163a2345f96e7b6450db9646" name="document-revision">
+  <meta content="d90bbec30d4bd3cbbb6c253b59462685cc5da510" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2018,7 +2018,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">The DCAT-AP Feed specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2024-02-07">7 February 2024</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2024-03-19">19 March 2024</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2035,7 +2035,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 7 February 2024,
+In addition, as of 19 March 2024,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2066,8 +2066,8 @@ Parts of this work may be from another specification document.  If so, those par
       <li>
        <a href="#retention-policies"><span class="secno">1.2</span> <span class="content">Retention policies</span></a>
        <ol class="toc">
-        <li><a href="#latest-version"><span class="secno">1.2.1</span> <span class="content">LatestVersionSubset with removals</span></a>
-        <li><a href="#without-removes"><span class="secno">1.2.2</span> <span class="content">Without Remove Activities</span></a>
+        <li><a href="#latest-version"><span class="secno">1.2.1</span> <span class="content">LatestVersionSubset with deletions</span></a>
+        <li><a href="#without-deleted"><span class="secno">1.2.2</span> <span class="content">Without Delete Activities</span></a>
         <li><a href="#some-removes"><span class="secno">1.2.3</span> <span class="content">Partial remove activities</span></a>
        </ol>
       <li><a href="#pagination"><span class="secno">1.3</span> <span class="content">Pagination</span></a>
@@ -2084,14 +2084,14 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="feed"><span class="secno">1. </span><span class="content">Publishing changes about DCAT-AP entities</span><a class="self-link" href="#feed"></a></h2>
-   <p>A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Removes in it about the DCAT-AP entities in a catalog.
+   <p>A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Deletes in it about the DCAT-AP entities in a catalog.
 DCAT-AP Feeds uses the <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[activitystreams-vocabulary]</a> to indicate the type of change.
 Three type of activities can be described:</p>
    <ul>
     <li data-md>
      <p>a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and</p>
     <li data-md>
-     <p>a Remove (iii), that is intended for the removal of previously created or updated set of quads.</p>
+     <p>a Delete (iii), that is intended for the deletion of previously created or updated set of quads.</p>
    </ul>
    <p>These activities MUST provide using the property <code>object</code> an IRI of the DCAT-AP entity (this thus cannot be a blank node), SHOULD come with a <code>published</code> property with an <code>xsd:dateTime</code> datatype, and SHOULD provide a type.
 The activity MUST be identified using an IRI.
@@ -2111,8 +2111,8 @@ On a DCAT-AP Feed, the <code>timestampPath</code> MUST be set to <code>published
 The <code>versionOfPath</code> MUST be set to object.
 This configures the property that will be used to point to the entity that is being altered.</p>
    <p>A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.</p>
-   <div class="example" id="example-2c2c469e">
-    <a class="self-link" href="#example-2c2c469e"></a> 
+   <div class="example" id="example-9ff13df8">
+    <a class="self-link" href="#example-9ff13df8"></a> 
     <p>A JSON-LD example:</p>
 <pre class="language-json highlight"><c- p>{</c->
     <c- f>"@context"</c-> <c- p>:</c-> <c- u>"TODO"</c-><c- p>,</c->
@@ -2139,7 +2139,7 @@ This configures the property that will be used to point to the entity that is be
         <c- p>},</c->
         <c- p>{</c->
             <c- f>"@id"</c-><c- p>:</c-> <c- u>"https://example.org/Dataset1#Event2"</c-><c- p>,</c->
-            <c- f>"@type"</c-><c- p>:</c-> <c- u>"Remove"</c-><c- p>,</c->
+            <c- f>"@type"</c-><c- p>:</c-> <c- u>"Delete"</c-><c- p>,</c->
             <c- f>"object"</c-><c- p>:</c-> <c- u>"https://example.org/Dataset1"</c-><c- p>,</c->
             <c- f>"published"</c-> <c- p>:</c-> <c- u>"2023-10-01T13:00:00Z"</c->
         <c- p>}</c->
@@ -2164,7 +2164,7 @@ This configures the property that will be used to point to the entity that is be
         <c- c>## The (updated) representation of this particular dataset</c->
         <c- c>## ...</c->
 <c- p>}</c->
-<c- g>&lt;https://example.org/Dataset1#Event2></c-> <c- b>a</c-> <c- nn>as</c-><c- p>:</c-><c- f>Remove</c-> <c- p>;</c->
+<c- g>&lt;https://example.org/Dataset1#Event2></c-> <c- b>a</c-> <c- nn>as</c-><c- p>:</c-><c- f>Delete</c-> <c- p>;</c->
     <c- nn>as</c-><c- p>:</c-><c- f>object</c-> <c- g>&lt;https://example.org/Dataset1></c-> <c- p>;</c->
     <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- s>"2023-10-01T13:00:00Z"</c-><c- p>^^</c-><c- nn>xsd</c-><c- p>:</c-><c- f>dateTime</c-> <c- p>.</c->
 </pre>
@@ -2261,9 +2261,9 @@ This will be introduced in [](#latest-version).</p>
 In this case, it will be impossible to probide the remove activities.
 While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy documented in [](#without-removes).</p>
    <p>Having to keep remove activities indefinetily will be difficult after a long period of time.
-Therefore a third retention policy can be put in place in order to say that removals are not kept in the feed after a certain period of time.
+Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
 This is documented in [](#some-removes).</p>
-   <h4 class="heading settled" data-level="1.2.1" id="latest-version"><span class="secno">1.2.1. </span><span class="content">LatestVersionSubset with removals</span><a class="self-link" href="#latest-version"></a></h4>
+   <h4 class="heading settled" data-level="1.2.1" id="latest-version"><span class="secno">1.2.1. </span><span class="content">LatestVersionSubset with deletions</span><a class="self-link" href="#latest-version"></a></h4>
    <p>By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.</p>
    <div class="example" id="example-c4818a9e">
     <a class="self-link" href="#example-c4818a9e"></a> 
@@ -2273,9 +2273,9 @@ This is documented in [](#some-removes).</p>
     <c- p>]</c-> <c- p>.</c->
 </pre>
    </div>
-   <h4 class="heading settled" data-level="1.2.2" id="without-removes"><span class="secno">1.2.2. </span><span class="content">Without Remove Activities</span><a class="self-link" href="#without-removes"></a></h4>
-   <p>When this retention policy is in place, a harvester MUST check for implicit removals.</p>
-   <p class="issue" id="issue-f5ad6ec3"><a class="self-link" href="#issue-f5ad6ec3"></a> A <code>ldes:ImplicitRemovalPolicy</code> has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50</p>
+   <h4 class="heading settled" data-level="1.2.2" id="without-deleted"><span class="secno">1.2.2. </span><span class="content">Without Delete Activities</span><a class="self-link" href="#without-deleted"></a></h4>
+   <p>When this retention policy is in place, a harvester MUST check for implicit deletions.</p>
+   <p class="issue" id="issue-3f77b36d"><a class="self-link" href="#issue-3f77b36d"></a> A <code>ldes:ImplicitDeletionPolicy</code> has been proposed that will force LDES clients to check for deleted members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50</p>
    <h4 class="heading settled" data-level="1.2.3" id="some-removes"><span class="secno">1.2.3. </span><span class="content">Partial remove activities</span><a class="self-link" href="#some-removes"></a></h4>
    <p>The list of removed datasets can get quite big in the long run without big benefits.
 You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
@@ -2491,6 +2491,6 @@ but publish all latest version of anything else.</p>
   </dl>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue"> A <code>ldes:ImplicitRemovalPolicy</code> has been proposed that will force LDES clients to check for removed members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50 <a class="issue-return" href="#issue-f5ad6ec3" title="Jump to section">↵</a></div>
+   <div class="issue"> A <code>ldes:ImplicitDeletionPolicy</code> has been proposed that will force LDES clients to check for deleted members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50 <a class="issue-return" href="#issue-3f77b36d" title="Jump to section">↵</a></div>
    <div class="issue"> This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50 <a class="issue-return" href="#issue-b74a56e6" title="Jump to section">↵</a></div>
   </div>
