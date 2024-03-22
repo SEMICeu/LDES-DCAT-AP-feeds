@@ -12,18 +12,16 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Copy to gh pages
-        uses: planetoftheweb/copy-to-branches@v1
-        env:
-          key: main
-          exclude: work 99_target
-          files: README.md  
+      - name: Deploy all other files first
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # The folder the action should deploy.
       - uses: w3c/spec-prod@v2
         with:
           TOOLCHAIN: bikeshed
 
           # Modify as appropriate
-          #GH_PAGES_BRANCH: gh-pages
+          GH_PAGES_BRANCH: gh-pages
 
           # if your doc isn’t in the root folder,
           # or Bikeshed otherwise can’t find it:
@@ -33,7 +31,4 @@ jobs:
           # with .html extension instead,
           # but if you want to customize it:
           DESTINATION: index.html
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: . # The folder the action should deploy.
+
