@@ -18,7 +18,7 @@ Abstract:
 
 # Publishing changes about DCAT-AP entities # {#feed}
 
-A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Deletes in it about the DCAT-AP entities in a catalog.
+A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Delete in it about the DCAT-AP entities in a catalog.
 DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
 Three type of activities can be described: 
  * a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and 
