@@ -17,7 +17,7 @@ jobs:
           TOOLCHAIN: bikeshed
 
           # Modify as appropriate
-          GH_PAGES_BRANCH: gh-pages
+          GH_PAGES_BRANCH: main
 
           # if your doc isn’t in the root folder,
           # or Bikeshed otherwise can’t find it:
