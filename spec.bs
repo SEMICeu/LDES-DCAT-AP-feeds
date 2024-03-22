@@ -1,0 +1,299 @@
+<pre class='metadata'>
+Title: The DCAT-AP Feed specification
+Shortname: DCAT-AP-Feeds
+Level: 1
+Status: LS
+Markup Shorthands: markdown yes
+URL: https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html
+Repository: https://github.com/SEMICeu/LDES-DCAT-AP-feeds
+Editor: 
+ - Pieter Colpaert, https://pietercolpaert.be
+ - Matthias Palmér
+Abstract:
+    Publishing a full data dump repetitevely will delegate change detection -- a fault-prone process -- to data consumers.
+    With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
+    Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+    It also provides a specification for harvesters to provide transparency into their harvesting progress.
+</pre>
+
+# Publishing changes about DCAT-AP entities # {#feed}
+
+A DCAT-AP Feed is a Linked Data Event Stream with ActivityStream entities Create, Update and Delete in it about the DCAT-AP entities in a catalog.
+DCAT-AP Feeds uses the [[!activitystreams-vocabulary]] to indicate the type of change.
+Three type of activities can be described: 
+ * a Create (i) or an Update (ii), both upserting a set of quads, packaged in a named graph, in the harvester, and 
+ * a Delete (iii), that is intended for the deletion of previously created or updated set of quads.
+
+These activities MUST provide using the property `object` an IRI of the DCAT-AP entity (this thus cannot be a blank node), SHOULD come with a `published` property with an `xsd:dateTime` datatype, and SHOULD provide a type.
+The activity MUST be identified using an IRI.
+The payload of the DCAT-AP entity MUST be provided in the named graph with the activity IRI as the graph.
+
+Note: When a harvester processes the set of quads in the named graph, it can create or replace all quads in a named graph of the DCAT-AP entity, whom’s IRI then possible is a concatenation of the entity IRI with the LDES IRI in order to ensure that multiple representations of the DCAT-AP entities from various sources can be provided.
+
+Fall-backs for when one of these optional properties are not available:
+ * The type: cfr. [[!activitypub]], we assume the payload of the named graph needs to be processed as an upsert, similar to an Update or a Create
+ * `published`: when no timestamp is included, a consumer MUST keep a list of all processed members to not process an already processed one again. Published can however only be omitted in the case of a LatestVersionSubset (see retention policies).
+
+All activities are immutable: once published one cannot alter the same member again.
+Each activity MUST be a member of an append-only change log or event stream typed `EventStream`, that MUST be given an IRI.
+This `EventStream` is the DCAT-AP Feed that conforms to the Linked Data Event Stream specification.
+On a DCAT-AP Feed, the `timestampPath` MUST be set to `published`, unless the publisher knows what they are doing, or when the timestamp cannot be provided.
+The `versionOfPath` MUST be set to object.
+This configures the property that will be used to point to the entity that is being altered.
+
+A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.
+
+<div class="example">
+
+A JSON-LD example:
+
+```json
+{
+    "@context" : "TODO",
+    "@id": "#Feed",
+    "@type": "EventStream",
+    "shape": "https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape",
+    "title": "My DCAT-AP Feed",
+    "timestampPath": "published",
+    "versionOfPath": "object",
+    "view": {
+        "@id": "_currentpageurl_",
+        "comment": "in this object we will be able to add more specific info about this page or view"
+    },
+    "member": [
+        {
+            "@id": "https://example.org/Dataset1#Event1",
+            "@type": "Create",
+            "object": "https://example.org/Dataset1",
+            "published" : "2023-10-01T12:00:00Z",
+            "@graph": {
+                "@id": "https://example.org/Dataset1",
+                "@type": "Dataset",
+                "comment": "Everything in here is the actual data that needs to be upserted"
+            }
+        },
+        {
+            "@id": "https://example.org/Dataset1#Event2",
+            "@type": "Delete",
+            "object": "https://example.org/Dataset1",
+            "published" : "2023-10-01T13:00:00Z"
+        }
+    ]
+}
+```
+
+Or the same data in TRiG:
+
+```turtle
+<#Feed> a ldes:EventStream ;
+        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape> ;
+        dct:title "My DCAT-AP Feed" ;
+        ldes:timestampPath as:published ;
+        tree:view <> ;
+        tree:member <https://example.org/Dataset1#Event1>, <https://example.org/Dataset1#Event2> .
+
+# This member is further described in the default graph 
+<https://example.org/Dataset1#Event1> a as:Create ;
+    as:object <https://example.org/Dataset1> ;
+    as:published "2023-10-01T12:00:00Z"^^xsd:dateTime .
+
+<https://example.org/Dataset1#Event1>  {
+    <https://example.org/Dataset1> a dcat:Dataset ;
+        ## The (updated) representation of this particular dataset
+        ## ...
+}
+<https://example.org/Dataset1#Event2> a as:Delete ;
+    as:object <https://example.org/Dataset1> ;
+    as:published "2023-10-01T13:00:00Z"^^xsd:dateTime .
+```
+
+</div>
+
+A DCAT-AP Feed MUST be published using either `application/ld+json` or `application/trig` and it MUST set the `Content-Type` header accordingly.
+In this spec, examples are provided for both serializations.
+Through content negotiation, other formats MAY be provided.
+
+This context information MUST be present:
+
+```turtle
+# Typing it as an EventStream
+<#Feed> a ldes:EventStream ;
+        # Indicating every member will adhere to the ActivityShape defined by the DCAT-AP-Feeds specification
+        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape> ;
+        # Indicating the timestampPath will be as:published
+        ldes:timestampPath as:published ;
+        # The current page is a page of this event stream
+        tree:view <> ;  # See pagination and retention policies for extra controls we will be able to describe here
+        # a link to all members
+        tree:member <...> .
+```
+
+The [shape.ttl](https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape) is part of this specification.
+A DCAT-AP Feeds provider SHOULD test their members before adding them to the feed.
+
+Note: The DCAT-AP Feed shapes graph extend the [official DCAT-APv3 shapes](https://semiceu.github.io/DCAT-AP/releases/3.0.0/#validation-of-dcat-ap), but don’t fork it: we only add the concepts of how to use these shapes in an DCAT-AP Feed.
+
+## Entity types ## {#types}
+
+In DCAT-AP2.2 entity types are divided into main and supportive entity types based on their importance in the application profile. In DCAT-AP Feeds we need to make a slightly different division based on how they appear in the event stream. We will refer to the following three kind of entity types:
+
+1. Standalone - these entities will appear in the event stream.
+2. Embedded - these entities will always be provided as part of standalone entities.
+3. Referenced - these entities are never described with triples, they are only referred to via their URIs.
+
+Note: LDES feed publishers should not add references to standalone entities before they have been added. Conversely, when removing entities all references should be removed first.
+
+Note: Any `dcat:CatalogRecord` entities can be provided as part the `dcat:Dataset` entity. Alternatively, and perhaps more appropriately, the event itself could be seen as an `dcat:CatalogRecord` with modification date and other useful information.
+
+
+### Standalone entities
+
+The main entity types are identified based on their class:
+
+* `dcat:Catalog`
+* `dcat:Dataset`
+* `dcat:Distribution`
+* `dcat:DataService`
+* `foaf:Agent`
+* `vcard:Kind`
+* `dcterms:LicenseDocument` - only use this when you need to define licenses that are not well known.
+
+Note: Only standalone entities that could be part of exactly one other standalone entity -- although not recommended -- can instead be optionally included in the parent standalone entity, allowing the option of having a blank node for that standalone entity that now becomes an embedded entity. This for example allows to embed a `dcat:Distribution` 
+### Embedded entities
+The embedded entity types are identified based on their class:
+
+* `spdx:Checksum`
+* `dcterms:Location`
+* `locn:Geometry`
+* `dcat:Relationship`
+* `prov:Activity`
+* `dcat:Attribution`
+* `spdx:ChecksumAlgorithm`
+* `foaf:Document`
+* `adms:Identifier`
+
+### Referenced entities
+
+The referenced entity types are identified based on the properties that point to them:
+
+* `dct:license` pointing to entities that are expected to be typed as `dcterms:LicenseDocument.`
+* a range of different properties pointing to `skos:Concept` (TODO, check which)
+* `dcat:themeTaxonomy` pointing to an instance of `skos:ConceptScheme`
+* `dcterms:accrualPeriodicity` pointing to `dcterms:Frequency` (or just a `skos:Concept`)
+* `dcterm:language` pointing to an instance of `dcterms:LinguisticSystem`
+* `dcterms:format`, `dcat:mediaType`, `dcat:packageFormat` or `dcat:compressFormat` pointing to a `dcterms:MediaType` instance
+* `dcterms:temporal` pointing to a `dcterms:PeriodOrTime` instance
+* `odrl:hasPolicy` pointing to a `odrl:Policy` instance
+* `dcterms:provenance` pointing to a `dcterms:ProvenanceStatement` instance
+* `dcterms:rights` pointing to an instance of `dcterms:RightsStatement`
+* `dcat:hadRole` pointing to a `dcat:Role` instance
+* `dcterms:conformsTo` pointing to a `dcterms:Standard` instance
+
+## Retention policies ## {#retention-policies}
+
+Without further explanation, a server publishing a Linked Data Event Stream (LDES), is considered to keep the full history of all elements.
+In DCAT-AP Feeds, harvesters are generally not interested in the full history.
+Therefore we recommend only keeping the latest activity (the create, updates, and remove entities) about an entity in the feed, yet transparently indicating this retention policy.
+
+
+It may also be possible that the data catalog does not keep track of the removed entities.
+In this case, it will be impossible to probide the remove activities.
+While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy.
+
+Having to keep remove activities indefinetily will be difficult after a long period of time. 
+Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
+
+### LatestVersionSubset with deletions ### {#latest-version}
+
+By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.
+
+<div class="example">
+
+```turtle
+<> ldes:retentionPolicy [
+        a ldes:LatestVersionSubset ;
+        ldes:amount 1    
+    ] .
+```
+
+</div>
+
+### Without Delete Activities ### {#without-deleted}
+
+When this retention policy is in place, a harvester MUST check for implicit deletions.
+
+Issue: A `ldes:ImplicitDeletionPolicy` has been proposed that will force LDES clients to check for deleted members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
+
+### Partial remove activities ### {#some-removes}
+
+The list of removed datasets can get quite big in the long run without big benefits.
+You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
+but publish all latest version of anything else.
+
+Issue: This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
+
+## Pagination ## {#pagination}
+
+TODO:
+ * Strategies
+ * Caching headers!
+
+<div class="example">
+
+```turtle
+@prefix : <https://data.example.org/feed> .
+@prefix ldes: <https://w3id.org/ldes#>.
+@prefix tree: <https://w3id.org/tree#>.
+@prefix as:  <https://www.w3.org/ns/activitystreams#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+
+:#Stream a ldes:EventStream ;
+    tree:member <Dataset1#Event1>, <DataService1#Event1> ;
+    ldes:timestampPath as:published ;
+    ldes:versionOfPath as:object ;
+    tree:view : .
+
+: tree:viewDescription [
+    #recommended: a retention policy to only keep the last update about a thing
+        ldes:retentionPolicy [
+            a ldes:LatestVersionSubset ;
+            ldes:amount 1    
+        ]
+    ] ;
+    # Recommended: multiple pages in a B-tree fragmentation
+    tree:relation [
+        a tree:GreaterThanOrEqualToRelation ;
+        tree:path as:published ;
+        tree:value "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+        tree:node :2020
+    ] ,
+    [
+        a tree:LessThanRelation ;
+        tree:path as:published ;
+        tree:value  "2021-01-01T00:00:00Z"^^xsd:dateTime ;
+        tree:node :2020
+    ]
+    #... More relations
+    .
+
+```
+</div>
+
+
+# Publishing a harverster’s event log # {#harverster-log}
+
+A DCAT-AP feeds harvester consumes one or more DCAT-AP Feeds.
+In order to do so, it SHOULD use an LDES compliant client.
+For the emitted objects by such an LDES client, the harvester can count on the fact that the official SHACL shape validates.
+The payload of an update will be contained within the 
+
+A harvester SHOULD publish the status of their logging on a page.
+
+Note: Currently there is no further text on what this status log should look like or how it should be described. We are waiting for consensus on this in the general LDES specification that should be a topic in the SEMIC LDES standardization activity starting September 2024.
+
+
+
+
