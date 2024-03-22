@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="d90bbec30d4bd3cbbb6c253b59462685cc5da510" name="document-revision">
+  <meta content="71dc959f82d27e6a9806e5212e67a87f7677aadb" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2018,7 +2018,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">The DCAT-AP Feed specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2024-03-19">19 March 2024</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2024-03-22">22 March 2024</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2035,7 +2035,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 19 March 2024,
+In addition, as of 22 March 2024,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2043,7 +2043,7 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>Publishing a full data dump over and over again will delegate change detection -- a fault prone process -- to data consumers.
+   <p>Publishing a full data dump repetitevely will delegate change detection -- a fault-prone process -- to data consumers.
 
     With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
     Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
@@ -2111,18 +2111,19 @@ On a DCAT-AP Feed, the <code>timestampPath</code> MUST be set to <code>published
 The <code>versionOfPath</code> MUST be set to object.
 This configures the property that will be used to point to the entity that is being altered.</p>
    <p>A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.</p>
-   <div class="example" id="example-9ff13df8">
-    <a class="self-link" href="#example-9ff13df8"></a> 
+   <div class="example" id="example-1d05d793">
+    <a class="self-link" href="#example-1d05d793"></a> 
     <p>A JSON-LD example:</p>
 <pre class="language-json highlight"><c- p>{</c->
     <c- f>"@context"</c-> <c- p>:</c-> <c- u>"TODO"</c-><c- p>,</c->
     <c- f>"@id"</c-><c- p>:</c-> <c- u>"#Feed"</c-><c- p>,</c->
     <c- f>"@type"</c-><c- p>:</c-> <c- u>"EventStream"</c-><c- p>,</c->
+    <c- f>"shape"</c-><c- p>:</c-> <c- u>"https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape"</c-><c- p>,</c->
     <c- f>"title"</c-><c- p>:</c-> <c- u>"My DCAT-AP Feed"</c-><c- p>,</c->
     <c- f>"timestampPath"</c-><c- p>:</c-> <c- u>"published"</c-><c- p>,</c->
     <c- f>"versionOfPath"</c-><c- p>:</c-> <c- u>"object"</c-><c- p>,</c->
     <c- f>"view"</c-><c- p>:</c-> <c- p>{</c->
-        <c- f>"@id"</c-><c- p>:</c-> <c- u>""</c-><c- p>,</c->
+        <c- f>"@id"</c-><c- p>:</c-> <c- u>"_currentpageurl_"</c-><c- p>,</c->
         <c- f>"comment"</c-><c- p>:</c-> <c- u>"in this object we will be able to add more specific info about this page or view"</c->
     <c- p>},</c->
     <c- f>"member"</c-><c- p>:</c-> <c- p>[</c->
@@ -2148,10 +2149,10 @@ This configures the property that will be used to point to the entity that is be
 </pre>
     <p>Or the same data in TRiG:</p>
 <pre class="language-turtle highlight"><c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
         <c- nn>dct</c-><c- p>:</c-><c- f>title</c-> <c- s>"My DCAT-AP Feed"</c-> <c- p>;</c->
-        <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> published <c- p>;</c->
-        <c- c># The current page can be used to view this event stream</c->
-        <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c-> <c- c># See pagination and retention policies for extra controls we will be able to describe here</c->
+        <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>member</c-> <c- g>&lt;https://example.org/Dataset1#Event1></c-><c- p>,</c-> <c- g>&lt;https://example.org/Dataset1#Event2></c-> <c- p>.</c->
 
 <c- c># This member is further described in the default graph </c->
@@ -2172,8 +2173,23 @@ This configures the property that will be used to point to the entity that is be
    <p>A DCAT-AP Feed MUST be published using either <code>application/ld+json</code> or <code>application/trig</code> and it MUST set the <code>Content-Type</code> header accordingly.
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.</p>
+   <p>This context information MUST be present:</p>
+<pre class="language-turtle highlight"><c- c># Typing it as an EventStream</c->
+<c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
+        <c- c># Indicating every member will adhere to the ActivityShape defined by the DCAT-AP-Feeds specification</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
+        <c- c># Indicating the timestampPath will be as:published</c->
+        <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
+        <c- c># The current page is a page of this event stream</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c->  <c- c># See pagination and retention policies for extra controls we will be able to describe here</c->
+        <c- c># a link to all members</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>member</c-> <c- g>&lt;...></c-> <c- p>.</c->
+</pre>
+   <p>The <a href="https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape">shape.ttl</a> is part of this specification.
+A DCAT-AP Feeds provider SHOULD test their members before adding them to the feed.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> The DCAT-AP Feed shapes graph extend the <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/#validation-of-dcat-ap">official DCAT-APv3 shapes</a>, but don’t fork it: we only add the concepts of how to use these shapes in an DCAT-AP Feed.</p>
    <h3 class="heading settled" data-level="1.1" id="types"><span class="secno">1.1. </span><span class="content">Entity types</span><a class="self-link" href="#types"></a></h3>
-   <p>In DCAT-AP2.2 entity types are divided into main and supportive entity types based on their importance in the application profile. In LDES we need to make a slightly different division based on how they appear in the event stream. We will refer to the following three kind of entity types:</p>
+   <p>In DCAT-AP2.2 entity types are divided into main and supportive entity types based on their importance in the application profile. In DCAT-AP Feeds we need to make a slightly different division based on how they appear in the event stream. We will refer to the following three kind of entity types:</p>
    <ol>
     <li data-md>
      <p>Standalone - these entities will appear in the event stream.</p>
@@ -2183,74 +2199,75 @@ Through content negotiation, other formats MAY be provided.</p>
      <p>Referenced - these entities are never described with triples, they are only referred to via their URIs.</p>
    </ol>
    <p class="note" role="note"><span class="marker">Note:</span> LDES feed publishers should not add references to standalone entities before they have been added. Conversely, when removing entities all references should be removed first.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Any dcat:CatalogRecord entities can be provided as part the dcat:Dataset entity. Alternatively, and perhaps more appropriately, the event itself could be seen as an dcat:CatalogRecord with modification date and other useful information.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Any <code>dcat:CatalogRecord</code> entities can be provided as part the <code>dcat:Dataset</code> entity. Alternatively, and perhaps more appropriately, the event itself could be seen as an <code>dcat:CatalogRecord</code> with modification date and other useful information.</p>
    <h4 class="heading settled" data-level="1.1.1" id="standalone-entities"><span class="secno">1.1.1. </span><span class="content">Standalone entities</span><a class="self-link" href="#standalone-entities"></a></h4>
-    The main entity types are identified based on their class: 
+   <p>The main entity types are identified based on their class:</p>
    <ul>
     <li data-md>
-     <p>dcat:Catalog</p>
+     <p><code>dcat:Catalog</code></p>
     <li data-md>
-     <p>dcat:Dataset</p>
+     <p><code>dcat:Dataset</code></p>
     <li data-md>
-     <p>dcat:Distribution</p>
+     <p><code>dcat:Distribution</code></p>
     <li data-md>
-     <p>dcat:DataService</p>
+     <p><code>dcat:DataService</code></p>
     <li data-md>
-     <p>foaf:Agent</p>
+     <p><code>foaf:Agent</code></p>
     <li data-md>
-     <p>vcard:Kind</p>
+     <p><code>vcard:Kind</code></p>
     <li data-md>
-     <p>dcterms:LicenseDocument - only use this when you need to define licenses that are not well known.</p>
+     <p><code>dcterms:LicenseDocument</code> - only use this when you need to define licenses that are not well known.</p>
    </ul>
+   <p class="note" role="note"><span class="marker">Note:</span> Only standalone entities that could be part of exactly one other standalone entity -- although not recommended -- can instead be optionally included in the parent standalone entity, allowing the option of having a blank node for that standalone entity that now becomes an embedded entity. This for example allows to embed a <code>dcat:Distribution</code></p>
    <h4 class="heading settled" data-level="1.1.2" id="embedded-entities"><span class="secno">1.1.2. </span><span class="content">Embedded entities</span><a class="self-link" href="#embedded-entities"></a></h4>
     The embedded entity types are identified based on their class: 
    <ul>
     <li data-md>
-     <p>spdx:Checksum</p>
+     <p><code>spdx:Checksum</code></p>
     <li data-md>
-     <p>dcterms:Location</p>
+     <p><code>dcterms:Location</code></p>
     <li data-md>
-     <p>locn:Geometry</p>
+     <p><code>locn:Geometry</code></p>
     <li data-md>
-     <p>dcat:Relationship</p>
+     <p><code>dcat:Relationship</code></p>
     <li data-md>
-     <p>prov:Activity</p>
+     <p><code>prov:Activity</code></p>
     <li data-md>
-     <p>dcat:Attribution</p>
+     <p><code>dcat:Attribution</code></p>
     <li data-md>
-     <p>spdx:ChecksumAlgorithm</p>
+     <p><code>spdx:ChecksumAlgorithm</code></p>
     <li data-md>
-     <p>foaf:Document</p>
+     <p><code>foaf:Document</code></p>
     <li data-md>
-     <p>adms:Identifier</p>
+     <p><code>adms:Identifier</code></p>
    </ul>
    <h4 class="heading settled" data-level="1.1.3" id="referenced-entities"><span class="secno">1.1.3. </span><span class="content">Referenced entities</span><a class="self-link" href="#referenced-entities"></a></h4>
-    The referenced entity types are identified based on the properties that point to them: 
+   <p>The referenced entity types are identified based on the properties that point to them:</p>
    <ul>
     <li data-md>
-     <p>dct:license pointing to entities that are expected to be typed as dcterms:LicenseDocument.</p>
+     <p><code>dct:license</code> pointing to entities that are expected to be typed as <code>dcterms:LicenseDocument.</code></p>
     <li data-md>
-     <p>a range of different properties pointing to skos:Concept (TODO, check which)</p>
+     <p>a range of different properties pointing to <code>skos:Concept</code> (TODO, check which)</p>
     <li data-md>
-     <p>dcat:themeTaxonomy pointing to an instance of skos:ConceptScheme</p>
+     <p><code>dcat:themeTaxonomy</code> pointing to an instance of <code>skos:ConceptScheme</code></p>
     <li data-md>
-     <p>dcterms:accrualPeriodicity pointing to dcterms:Frequency (or just a skos:Concept)</p>
+     <p><code>dcterms:accrualPeriodicity</code> pointing to <code>dcterms:Frequency</code> (or just a <code>skos:Concept</code>)</p>
     <li data-md>
-     <p>dcterm:language pointing to an instance of dcterms:LinguisticSystem</p>
+     <p><code>dcterm:language</code> pointing to an instance of <code>dcterms:LinguisticSystem</code></p>
     <li data-md>
-     <p>dcterms:format, dcat:mediaType, dcat:packageFormat or dcat:compressFormat pointing to a dcterms:MediaType instance</p>
+     <p><code>dcterms:format</code>, <code>dcat:mediaType</code>, <code>dcat:packageFormat</code> or <code>dcat:compressFormat</code> pointing to a <code>dcterms:MediaType</code> instance</p>
     <li data-md>
-     <p>dcterms:temporal pointing to a dcterms:PeriodOrTime instance</p>
+     <p><code>dcterms:temporal</code> pointing to a <code>dcterms:PeriodOrTime</code> instance</p>
     <li data-md>
-     <p>odrl:hasPolicy pointing to a odrl:Policy instance</p>
+     <p><code>odrl:hasPolicy</code> pointing to a <code>odrl:Policy</code> instance</p>
     <li data-md>
-     <p>dcterms:provenance pointing to a dcterms:ProvenanceStatement instance</p>
+     <p><code>dcterms:provenance</code> pointing to a <code>dcterms:ProvenanceStatement</code> instance</p>
     <li data-md>
-     <p>dcterms:rights pointing to an instance of dcterms:RightsStatement</p>
+     <p><code>dcterms:rights</code> pointing to an instance of <code>dcterms:RightsStatement</code></p>
     <li data-md>
-     <p>dcat:hadRole pointing to a dcat:Role instance</p>
+     <p><code>dcat:hadRole</code> pointing to a <code>dcat:Role</code> instance</p>
     <li data-md>
-     <p>dcterms:conformsTo pointing to a dcterms:Standard instance</p>
+     <p><code>dcterms:conformsTo</code> pointing to a <code>dcterms:Standard</code> instance</p>
    </ul>
    <h3 class="heading settled" data-level="1.2" id="retention-policies"><span class="secno">1.2. </span><span class="content">Retention policies</span><a class="self-link" href="#retention-policies"></a></h3>
    <p>Without further explanation, a server publishing a Linked Data Event Stream (LDES), is considered to keep the full history of all elements.
@@ -2331,7 +2348,12 @@ but publish all latest version of anything else.</p>
 </pre>
    </div>
    <h2 class="heading settled" data-level="2" id="harverster-log"><span class="secno">2. </span><span class="content">Publishing a harverster’s event log</span><a class="self-link" href="#harverster-log"></a></h2>
-   <p>Discussions on harvester status notifications yet need to start. Planned in Q1 2024.</p>
+   <p>A DCAT-AP feeds harvester consumes one or more DCAT-AP Feeds.
+In order to do so, it SHOULD use an LDES compliant client.
+For the emitted objects by such an LDES client, the harvester can count on the fact that the official SHACL shape validates.
+The payload of an update will be contained within the</p>
+   <p>A harvester SHOULD publish the status of their logging on a page.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Currently there is no further text on what this status log should look like or how it should be described. We are waiting for consensus on this in the general LDES specification that should be a topic in the SEMIC LDES standardization activity starting September 2024.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
