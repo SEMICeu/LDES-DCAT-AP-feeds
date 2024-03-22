@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="71dc959f82d27e6a9806e5212e67a87f7677aadb" name="document-revision">
+  <meta content="825d13b423b6884a584d7f6ea2549cca40a0b2fd" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2272,14 +2272,12 @@ A DCAT-AP Feeds provider SHOULD test their members before adding them to the fee
    <h3 class="heading settled" data-level="1.2" id="retention-policies"><span class="secno">1.2. </span><span class="content">Retention policies</span><a class="self-link" href="#retention-policies"></a></h3>
    <p>Without further explanation, a server publishing a Linked Data Event Stream (LDES), is considered to keep the full history of all elements.
 In DCAT-AP Feeds, harvesters are generally not interested in the full history.
-Therefore we recommend only keeping the latest activity (the create, updates, and remove entities) about an entity in the feed, yet transparently indicating this retention policy.
-This will be introduced in [](#latest-version).</p>
+Therefore we recommend only keeping the latest activity (the create, updates, and remove entities) about an entity in the feed, yet transparently indicating this retention policy.</p>
    <p>It may also be possible that the data catalog does not keep track of the removed entities.
 In this case, it will be impossible to probide the remove activities.
-While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy documented in [](#without-removes).</p>
+While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy.</p>
    <p>Having to keep remove activities indefinetily will be difficult after a long period of time.
-Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
-This is documented in [](#some-removes).</p>
+Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.</p>
    <h4 class="heading settled" data-level="1.2.1" id="latest-version"><span class="secno">1.2.1. </span><span class="content">LatestVersionSubset with deletions</span><a class="self-link" href="#latest-version"></a></h4>
    <p>By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.</p>
    <div class="example" id="example-c4818a9e">
