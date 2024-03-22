@@ -1,4 +1,4 @@
-@prefix dcatapfeeds: <https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#> .
+@prefix dcatapfeeds: <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix tree: <https://w3id.org/tree#> .

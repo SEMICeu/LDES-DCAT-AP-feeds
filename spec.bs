@@ -52,7 +52,7 @@ A JSON-LD example:
     "@context" : "TODO",
     "@id": "#Feed",
     "@type": "EventStream",
-    "shape": "https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape",
+    "shape": "https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape",
     "title": "My DCAT-AP Feed",
     "timestampPath": "published",
     "versionOfPath": "object",
@@ -86,7 +86,7 @@ Or the same data in TRiG:
 
 ```turtle
 <#Feed> a ldes:EventStream ;
-        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape> ;
+        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape> ;
         dct:title "My DCAT-AP Feed" ;
         ldes:timestampPath as:published ;
         tree:view <> ;
@@ -119,7 +119,7 @@ This context information MUST be present:
 # Typing it as an EventStream
 <#Feed> a ldes:EventStream ;
         # Indicating every member will adhere to the ActivityShape defined by the DCAT-AP-Feeds specification
-        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape> ;
+        tree:shape <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape> ;
         # Indicating the timestampPath will be as:published
         ldes:timestampPath as:published ;
         # The current page is a page of this event stream
@@ -128,7 +128,7 @@ This context information MUST be present:
         tree:member <...> .
 ```
 
-The [shape.ttl](https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape) is part of this specification.
+The [shape.ttl](https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape) is part of this specification.
 A DCAT-AP Feeds provider SHOULD test their members before adding them to the feed.
 
 Note: The DCAT-AP Feed shapes graph extend the [official DCAT-APv3 shapes](https://semiceu.github.io/DCAT-AP/releases/3.0.0/#validation-of-dcat-ap), but don’t fork it: we only add the concepts of how to use these shapes in an DCAT-AP Feed.
