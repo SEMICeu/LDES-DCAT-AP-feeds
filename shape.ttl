@@ -50,5 +50,5 @@ dcatapfeeds:EntityShape a sh:NodeShape ;
 
 :Kind_Shape a sh:NodeShape ;
     rdfs:label "Kind"@en ;
-    rdfs:comment “Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes” ;
+    rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes" ;
     sh:targetClass vcard:Kind .
