@@ -194,15 +194,14 @@ The referenced entity types are identified based on the properties that point to
 Without further explanation, a server publishing a Linked Data Event Stream (LDES), is considered to keep the full history of all elements.
 In DCAT-AP Feeds, harvesters are generally not interested in the full history.
 Therefore we recommend only keeping the latest activity (the create, updates, and remove entities) about an entity in the feed, yet transparently indicating this retention policy.
-This will be introduced in [](#latest-version).
+
 
 It may also be possible that the data catalog does not keep track of the removed entities.
 In this case, it will be impossible to probide the remove activities.
-While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy documented in [](#without-removes).
+While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy.
 
 Having to keep remove activities indefinetily will be difficult after a long period of time. 
 Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
-This is documented in [](#some-removes).
 
 ### LatestVersionSubset with deletions ### {#latest-version}
 
