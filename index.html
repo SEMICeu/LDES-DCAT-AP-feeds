@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="4d38b6dabcfd26b41937c1ef52eff6986baa7f5e" name="document-revision">
+  <meta content="3fbe0c78e02ed9512995411589d106ec63a774b9" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2111,14 +2111,14 @@ On a DCAT-AP Feed, the <code>timestampPath</code> MUST be set to <code>published
 The <code>versionOfPath</code> MUST be set to object.
 This configures the property that will be used to point to the entity that is being altered.</p>
    <p>A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.</p>
-   <div class="example" id="example-1d05d793">
-    <a class="self-link" href="#example-1d05d793"></a> 
+   <div class="example" id="example-6aaf2314">
+    <a class="self-link" href="#example-6aaf2314"></a> 
     <p>A JSON-LD example:</p>
 <pre class="language-json highlight"><c- p>{</c->
     <c- f>"@context"</c-> <c- p>:</c-> <c- u>"TODO"</c-><c- p>,</c->
     <c- f>"@id"</c-><c- p>:</c-> <c- u>"#Feed"</c-><c- p>,</c->
     <c- f>"@type"</c-><c- p>:</c-> <c- u>"EventStream"</c-><c- p>,</c->
-    <c- f>"shape"</c-><c- p>:</c-> <c- u>"https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape"</c-><c- p>,</c->
+    <c- f>"shape"</c-><c- p>:</c-> <c- u>"https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape"</c-><c- p>,</c->
     <c- f>"title"</c-><c- p>:</c-> <c- u>"My DCAT-AP Feed"</c-><c- p>,</c->
     <c- f>"timestampPath"</c-><c- p>:</c-> <c- u>"published"</c-><c- p>,</c->
     <c- f>"versionOfPath"</c-><c- p>:</c-> <c- u>"object"</c-><c- p>,</c->
@@ -2149,7 +2149,7 @@ This configures the property that will be used to point to the entity that is be
 </pre>
     <p>Or the same data in TRiG:</p>
 <pre class="language-turtle highlight"><c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
-        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
         <c- nn>dct</c-><c- p>:</c-><c- f>title</c-> <c- s>"My DCAT-AP Feed"</c-> <c- p>;</c->
         <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c->
@@ -2177,7 +2177,7 @@ Through content negotiation, other formats MAY be provided.</p>
 <pre class="language-turtle highlight"><c- c># Typing it as an EventStream</c->
 <c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
         <c- c># Indicating every member will adhere to the ActivityShape defined by the DCAT-AP-Feeds specification</c->
-        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
+        <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
         <c- c># Indicating the timestampPath will be as:published</c->
         <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
         <c- c># The current page is a page of this event stream</c->
@@ -2185,7 +2185,7 @@ Through content negotiation, other formats MAY be provided.</p>
         <c- c># a link to all members</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>member</c-> <c- g>&lt;...></c-> <c- p>.</c->
 </pre>
-   <p>The <a href="https://semiceu.github.io/LDES-DCAT-AP-Feeds/shape.ttl#ActivityShape">shape.ttl</a> is part of this specification.
+   <p>The <a href="https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape">shape.ttl</a> is part of this specification.
 A DCAT-AP Feeds provider SHOULD test their members before adding them to the feed.</p>
    <p class="note" role="note"><span class="marker">Note:</span> The DCAT-AP Feed shapes graph extend the <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/#validation-of-dcat-ap">official DCAT-APv3 shapes</a>, but don’t fork it: we only add the concepts of how to use these shapes in an DCAT-AP Feed.</p>
    <h3 class="heading settled" data-level="1.1" id="types"><span class="secno">1.1. </span><span class="content">Entity types</span><a class="self-link" href="#types"></a></h3>
