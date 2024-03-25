@@ -12,10 +12,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy all other files first
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: . # The folder the action should deploy.
       - uses: w3c/spec-prod@v2
         with:
           TOOLCHAIN: bikeshed
