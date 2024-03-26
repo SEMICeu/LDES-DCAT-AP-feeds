@@ -3,7 +3,7 @@ name: Shape
 on:
   # Run workflow every day at 5:30
   schedule:
-    - cron:  '30 5 * * *'
+    - cron: '30 5 * * *'
   # Run workflow when new commits are pushed to the repository (shape.ttl might have changed)
   push:
     branches: [ main ]
@@ -27,6 +27,10 @@ jobs:
     # In case the workflow was triggered because of the schedule, the DCAT-AP repo must contain new commits to proceed
     if: ${{ github.event_name != 'schedule' || github.steps.check.conclusion == 'success' }}
 
+    defaults:
+      run:
+        working-directory: ./shacl-shapes-generator
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,7 +40,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: cd shacl-shapes-generator/
       - name: Install dependencies
         run: npm ci
       - name: Build the script
@@ -45,7 +48,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Fetch the owl:imports, remove the owl:imports triples into shape.ttl
         run: node .
-      - run: cd ..
 
       - name: Deploy everything to GH pages
         uses: JamesIves/github-pages-deploy-action@v4
