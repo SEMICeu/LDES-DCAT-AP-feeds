@@ -1,27 +1,51 @@
-name: CI
+name: Shape
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Run workflow every day at 5:30
+  schedule:
+    - cron:  '30 5 * * *'
+  # Run workflow when new commits are pushed to the repository (shape.ttl might have changed)
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains two jobs: first it checks if new commits were made to the upstream repo, and if so, it runs the second job
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: curl -s https://api.github.com/repos/SEMICeu/DCAT-AP/commits/master | jq -r "((now - (.commit.author.date | fromdateiso8601) )  / (60*60*24)  | trunc)"
+
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # In case the workflow was triggered because of the schedule, the DCAT-AP repo must contain new commits to proceed
+    if: ${{ github.event_name != 'schedule' || github.steps.check.conclusion == 'success' }}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: cd shacl-shapes-generator/
+      - name: Install dependencies
+        run: npm ci
+      - name: Build the script
+        run: npm run build
 
       # Runs a single command using the runners shell
       - name: Fetch the owl:imports, remove the owl:imports triples into shape.ttl
-        run: echo Hello, world!
+        run: node .
+      - run: cd ..
 
       - name: Deploy everything to GH pages
         uses: JamesIves/github-pages-deploy-action@v4

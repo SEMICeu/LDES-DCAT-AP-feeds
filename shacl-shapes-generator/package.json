@@ -1,0 +1,34 @@
+{
+  "name": "shacl-shapes-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "bin": {
+    "generate-shacl-shape": "index.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist/ && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SEMICeu/LDES-DCAT-AP-feeds.git"
+  },
+  "author": "Ieben Smessaert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SEMICeu/LDES-DCAT-AP-feeds/issues"
+  },
+  "homepage": "https://github.com/SEMICeu/LDES-DCAT-AP-feeds#readme",
+  "dependencies": {
+    "arrayify-stream": "^2.0.1",
+    "got-cjs": "^12.5.4",
+    "n3": "^1.17.3"
+  },
+  "devDependencies": {
+    "@types/got": "^9.6.12",
+    "@types/n3": "^1.16.4",
+    "@types/streamify-array": "^1.0.3",
+    "typescript": "^5.4.3"
+  }
+}
