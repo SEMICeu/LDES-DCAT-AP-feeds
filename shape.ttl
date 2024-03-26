@@ -3,7 +3,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix tree: <https://w3id.org/tree#> .
 @prefix as: <https://www.w3.org/ns/activitystreams#> .
-@prefix : <http://data.europa.eu/r5r/shacl_shapes#> .
+@prefix dcatap: <http://data.europa.eu/r5r/shacl_shapes#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -25,7 +25,7 @@ dcatapfeeds:UpsertShape a sh:NodeShape ;
         sh:maxCount 1 ;
     ] ;
     sh:property dcatapfeeds:PublishedPropertyShape .
-		
+
 dcatapfeeds:DeleteShape a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties (rdf:type) ;
@@ -46,9 +46,9 @@ dcatapfeeds:PublishedPropertyShape a sh:PropertyShape ;
 
 
 dcatapfeeds:EntityShape a sh:NodeShape ;
-    sh:xone ( :Catalog_Shape :Dataset_Shape :Distribution_Shape :DataService_Shape :Agent_Shape :Kind_Shape :LicenseDocument_Shape ) .
+    sh:xone ( dcatap:Catalog_Shape dcatap:Dataset_Shape dcatap:Distribution_Shape dcatap:DataService_Shape dcatap:Agent_Shape dcatap:Kind_Shape dcatap:LicenseDocument_Shape ) .
 
-:Kind_Shape a sh:NodeShape ;
+dcatap:Kind_Shape a sh:NodeShape ;
     rdfs:label "Kind"@en ;
     rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes" ;
     sh:targetClass vcard:Kind .
