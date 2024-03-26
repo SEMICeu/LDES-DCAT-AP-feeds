@@ -1,54 +1,571 @@
-@prefix dcatapfeeds: <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix tree: <https://w3id.org/tree#> .
-@prefix as: <https://www.w3.org/ns/activitystreams#> .
-@prefix : <http://data.europa.eu/r5r/shacl_shapes#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dcatapfeeds: <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#>.
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix as: <https://www.w3.org/ns/activitystreams#>.
+@prefix dcatap: <http://data.europa.eu/r5r/shacl_shapes#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#>.
 
-dcatapfeeds: owl:imports <https://semiceu.github.io/DCAT-AP/releases/3.0.0/html/shacl/shapes.ttl> .
-
-dcatapfeeds:ActivityShape a sh:NodeShape ;
-    sh:xone ( dcatapfeeds:UpsertShape dcatapfeeds:DeleteShape ) .
-
-dcatapfeeds:UpsertShape a sh:NodeShape ;
-    sh:closed true ;
-    sh:ignoredProperties (rdf:type) ;
-    sh:targetClass as:Create, as:Update ;
-    sh:property [
-        sh:path as:object ;
-        sh:node dcatapfeeds:EntityShape ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-    ] ;
-    sh:property dcatapfeeds:PublishedPropertyShape .
-		
-dcatapfeeds:DeleteShape a sh:NodeShape ;
-    sh:closed true ;
-    sh:ignoredProperties (rdf:type) ;
-    sh:targetClass as:Delete ;
-    sh:property [
-        sh:path as:object ;
-        sh:nodeKind sh:IRI ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-    ] ;
-    sh:property dcatapfeeds:PublishedPropertyShape .
-
-dcatapfeeds:PublishedPropertyShape a sh:PropertyShape ;
-    sh:path as:published ;
-    sh:datatype xsd:dateTime ;
-    sh:minCount 0 ;
-    sh:maxCount 1 .
-
-
-dcatapfeeds:EntityShape a sh:NodeShape ;
-    sh:xone ( :Catalog_Shape :Dataset_Shape :Distribution_Shape :DataService_Shape :Agent_Shape :Kind_Shape :LicenseDocument_Shape ) .
-
-:Kind_Shape a sh:NodeShape ;
-    rdfs:label "Kind"@en ;
-    rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes" ;
-    sh:targetClass vcard:Kind .
+dcatapfeeds:ActivityShape a sh:NodeShape;
+    sh:xone _:n3-0.
+_:n3-0 rdf:first dcatapfeeds:UpsertShape;
+    rdf:rest _:n3-1.
+dcatapfeeds:UpsertShape a sh:NodeShape;
+    sh:closed true;
+    sh:ignoredProperties _:n3-2;
+    sh:targetClass as:Create, as:Update;
+    sh:property _:n3-3, dcatapfeeds:PublishedPropertyShape.
+_:n3-1 rdf:first dcatapfeeds:DeleteShape;
+    rdf:rest rdf:nil.
+dcatapfeeds:DeleteShape a sh:NodeShape;
+    sh:closed true;
+    sh:ignoredProperties _:n3-4;
+    sh:targetClass as:Delete;
+    sh:property dcatapfeeds:PublishedPropertyShape, _:n3-5.
+_:n3-2 rdf:first rdf:type;
+    rdf:rest rdf:nil.
+_:n3-3 sh:path as:object;
+    sh:node dcatapfeeds:EntityShape;
+    sh:minCount 1;
+    sh:maxCount 1.
+dcatapfeeds:EntityShape a sh:NodeShape;
+    sh:xone _:n3-6.
+dcatapfeeds:PublishedPropertyShape a sh:PropertyShape;
+    sh:path as:published;
+    sh:minCount 0;
+    sh:maxCount 1;
+    sh:datatype xsd:dateTime.
+_:n3-4 rdf:first rdf:type;
+    rdf:rest rdf:nil.
+_:n3-5 sh:path as:object;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:nodeKind sh:IRI.
+_:n3-6 rdf:first dcatap:Catalog_Shape;
+    rdf:rest _:n3-7.
+dcatap:Catalog_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#Catalog>;
+    sh:property _:n3-29, _:n3-30, _:n3-31, _:n3-32, _:n3-33, _:n3-34, _:n3-35, _:n3-36, _:n3-37, _:n3-38, _:n3-39, _:n3-40, _:n3-41, _:n3-42, _:n3-43, _:n3-44, _:n3-45, _:n3-46, _:n3-47;
+    rdfs:label "Catalog"@en.
+_:n3-7 rdf:first dcatap:Dataset_Shape;
+    rdf:rest _:n3-8.
+dcatap:Dataset_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#Dataset>;
+    sh:property _:n3-60, _:n3-61, _:n3-62, _:n3-63, _:n3-64, _:n3-65, _:n3-66, _:n3-67, _:n3-68, _:n3-69, _:n3-70, _:n3-71, _:n3-72, _:n3-73, _:n3-74, _:n3-75, _:n3-76, _:n3-77, _:n3-78, _:n3-79, _:n3-80, _:n3-81, _:n3-82, _:n3-83, _:n3-84, _:n3-85, _:n3-86, _:n3-87, _:n3-88, _:n3-89, _:n3-90, _:n3-91, _:n3-92, _:n3-93, _:n3-94, _:n3-95;
+    rdfs:label "Dataset"@en.
+_:n3-8 rdf:first dcatap:Distribution_Shape;
+    rdf:rest _:n3-9.
+dcatap:Distribution_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#Distribution>;
+    sh:property _:n3-110, _:n3-111, _:n3-112, _:n3-113, _:n3-114, _:n3-115, _:n3-116, _:n3-117, _:n3-118, _:n3-119, _:n3-120, _:n3-121, _:n3-122, _:n3-123, _:n3-124, _:n3-125, _:n3-126, _:n3-127, _:n3-128, _:n3-129, _:n3-130, _:n3-131, _:n3-132, _:n3-133;
+    rdfs:label "Distribution"@en.
+_:n3-9 rdf:first dcatap:DataService_Shape;
+    rdf:rest _:n3-10.
+dcatap:DataService_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#DataService>;
+    sh:property _:n3-52, _:n3-53, _:n3-54, _:n3-55, _:n3-56, _:n3-57, _:n3-58, _:n3-59;
+    rdfs:label "Data Service"@en.
+_:n3-10 rdf:first dcatap:Agent_Shape;
+    rdf:rest _:n3-11.
+dcatap:Agent_Shape a sh:NodeShape;
+    sh:targetClass <http://xmlns.com/foaf/0.1/Agent>;
+    sh:property _:n3-18, _:n3-19;
+    rdfs:label "Agent"@en.
+_:n3-11 rdf:first dcatap:Kind_Shape;
+    rdf:rest _:n3-12.
+dcatap:Kind_Shape a sh:NodeShape;
+    sh:targetClass vcard:Kind;
+    rdfs:label "Kind"@en;
+    rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes".
+_:n3-12 rdf:first dcatap:LicenseDocument_Shape;
+    rdf:rest rdf:nil.
+<http://data.europa.eu/r5r/shacl_shapes> <http://www.w3.org/ns/dcat#accessURL> <https://joinup.ec.europa.eu/solution/dcat-application-profile-data-portals-europe/distribution/dcat-ap-200-shacl-shapes>;
+    <http://www.w3.org/ns/dcat#downloadURL> <https://github.com/SEMICeu/DCAT-AP/raw/cea5a96bb4a6f120c20b7a2b3fb4d86bcd725952/releases/2.0.0/Draft/dcat-ap_2.0.0_shacl_shapes.ttl>;
+    <http://data.europa.eu/r5ravailability> <http://data.europa.eu/r5r/stable>;
+    <http://purl.org/dc/terms/format> <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+    <http://purl.org/dc/terms/conformsTo> <https://www.w3.org/TR/shacl>;
+    <http://xmlns.com/foaf/0.1/homepage> <https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/dcat-application-profile-data-portals-europe/release/210>;
+    <http://purl.org/dc/terms/creator> _:n3-13, _:n3-14, _:n3-15, _:n3-16;
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0>;
+    <http://creativecommons.org/ns#attributionURL> <http://ec.europa.eu/>;
+    <http://purl.org/dc/terms/modified> "2021-12-01"^^xsd:date;
+    <http://purl.org/dc/terms/publisher> <http://publications.europa.eu/resource/authority/corporate-body/DIGIT>;
+    <http://purl.org/dc/terms/relation> <https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/dcat-application-profile-data-portals-europe/release/210>;
+    <http://purl.org/dc/terms/description> "This document specifies the constraints on properties and classes expressed by DCAT-AP in SHACL."@en;
+    <http://purl.org/dc/terms/title> "The constraints of DCAT Application Profile for Data Portals in Europe"@en;
+    owl:versionInfo "3.0.0";
+    <http://xmlns.com/foaf/0.1/maker> _:n3-17.
+_:n3-13 rdfs:seeAlso <https://www.linkedin.com/in/bert-van-nuffelen-a349634/>;
+    <http://www.w3.org/ns/org#memberOf> <https://tenforce.com>;
+    <http://xmlns.com/foaf/0.1/homepage> <https://www.linkedin.com/in/bert-van-nuffelen-a349634/>;
+    <http://xmlns.com/foaf/0.1/name> "Bert Van Nuffelen".
+_:n3-14 rdfs:seeAlso <https://www.ails.ece.ntua.gr/people/natasa>;
+    <http://www.w3.org/ns/org#memberOf> <https://www.ails.ece.ntua.gr/>;
+    <http://xmlns.com/foaf/0.1/homepage> <https://www.ails.ece.ntua.gr/people/natasa>;
+    <http://xmlns.com/foaf/0.1/name> "Natasa Sofou".
+_:n3-15 rdfs:seeAlso <http://eugeniu.costezki.ro#me>;
+    <http://www.w3.org/ns/org#memberOf> <http://publications.europa.eu/resource/authority/corporate-body/PUBL>;
+    <http://xmlns.com/foaf/0.1/homepage> <http://costezki.ro>;
+    <http://xmlns.com/foaf/0.1/name> "Eugeniu Costetchi".
+_:n3-16 rdfs:seeAlso <http://makxdekkers.com/#me>;
+    <http://www.w3.org/ns/org#memberOf> <http://ami-consult.com/#id>;
+    <http://xmlns.com/foaf/0.1/homepage> <http://makxdekkers.com/>;
+    <http://xmlns.com/foaf/0.1/name> "Makx Dekkers".
+_:n3-17 <http://xmlns.com/foaf/0.1/name> "DCAT-AP Working Group";
+    <http://xmlns.com/foaf/0.1/mbox> <mailto:contact@semic.eu>;
+    <http://xmlns.com/foaf/0.1/page> <https://github.com/SEMICeu/DCAT-AP>, <https://joinup.ec.europa.eu/node/64331>.
+_:n3-18 sh:path <http://xmlns.com/foaf/0.1/name>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-19 sh:path <http://purl.org/dc/terms/type>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+dcatap:CatalogRecord_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#CatalogRecord>;
+    sh:property _:n3-20, _:n3-21, _:n3-22, _:n3-23, _:n3-24, _:n3-25, _:n3-26, _:n3-27, _:n3-28;
+    rdfs:label "Catalog Record"@en.
+_:n3-20 sh:path <http://xmlns.com/foaf/0.1/primaryTopic>;
+    sh:node dcatap:DcatResource_Shape;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+dcatap:DcatResource_Shape a sh:NodeShape;
+    rdfs:label "dcat:Resource";
+    rdfs:comment "the union of Catalog, Dataset and DataService";
+    sh:message "The node is either a Catalog, Dataset or a DataService";
+    sh:or _:n3-104.
+_:n3-21 sh:path <http://purl.org/dc/terms/modified>;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:shape dcatap:DateOrDateTimeDataType_Shape.
+dcatap:DateOrDateTimeDataType_Shape a sh:NodeShape;
+    rdfs:label "Date time date disjunction";
+    rdfs:comment "Date time date disjunction shape checks that a datatype property receives a temporal value: date, dateTime, gYear or gYearMonth literal";
+    sh:message "The values must be data typed as either xsd:date, xsd:dateTime, xsd:gYear or xsd:gYearMonth";
+    sh:or _:n3-96.
+_:n3-22 sh:path <http://purl.org/dc/terms/conformsTo>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-23 sh:path <http://purl.org/dc/terms/issued>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-24 sh:path <http://www.w3.org/ns/adms#status>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-25 sh:path <http://purl.org/dc/terms/language>;
+    sh:severity sh:Violation.
+_:n3-26 sh:path <http://purl.org/dc/terms/source>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-27 sh:path <http://purl.org/dc/terms/title>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-28 sh:path <http://purl.org/dc/terms/description>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-29 sh:path <http://purl.org/dc/terms/language>;
+    sh:severity sh:Violation.
+_:n3-30 sh:path <http://data.europa.eu/r5rapplicableLegislation>;
+    sh:nodeKind sh:IRI;
+    sh:severity sh:Violation.
+_:n3-31 sh:path <http://purl.org/dc/terms/license>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-32 sh:path <http://purl.org/dc/terms/issued>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-33 sh:path <http://purl.org/dc/terms/spatial>;
+    sh:severity sh:Violation.
+_:n3-34 sh:path <http://purl.org/dc/terms/hasPart>;
+    sh:severity sh:Violation.
+_:n3-35 sh:path <http://purl.org/dc/terms/isPartOf>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-36 sh:path <http://purl.org/dc/terms/modified>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-37 sh:path <http://purl.org/dc/terms/rights>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-38 sh:path <http://www.w3.org/ns/dcat#record>;
+    sh:severity sh:Violation.
+_:n3-39 sh:path <http://www.w3.org/ns/dcat#themeTaxonomy>;
+    sh:severity sh:Violation.
+_:n3-40 sh:path <http://www.w3.org/ns/dcat#service>;
+    sh:severity sh:Violation.
+_:n3-41 sh:path <http://www.w3.org/ns/dcat#catalog>;
+    sh:severity sh:Violation.
+_:n3-42 sh:path <http://purl.org/dc/terms/creator>;
+    sh:severity sh:Violation.
+_:n3-43 sh:path <http://www.w3.org/ns/dcat#dataset>;
+    sh:severity sh:Violation.
+_:n3-44 sh:path <http://purl.org/dc/terms/description>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-45 sh:path <http://purl.org/dc/terms/publisher>;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-46 sh:path <http://purl.org/dc/terms/title>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-47 sh:path <http://xmlns.com/foaf/0.1/homepage>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+dcatap:CategoryScheme_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/2004/02/skos/core#ConceptScheme>;
+    sh:property _:n3-48;
+    rdfs:label "Category Scheme"@en.
+_:n3-48 sh:path <http://purl.org/dc/terms/title>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+dcatap:Category_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/2004/02/skos/core#Concept>;
+    sh:property _:n3-49;
+    rdfs:label "Category"@en.
+_:n3-49 sh:path <http://www.w3.org/2004/02/skos/core#prefLabel>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+dcatap:Checksum_Shape a sh:NodeShape;
+    sh:targetClass <http://spdx.org/rdf/terms#Checksum>;
+    sh:property _:n3-50, _:n3-51;
+    rdfs:label "Checksum"@en.
+_:n3-50 sh:path <http://spdx.org/rdf/terms#algorithm>;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha1>.
+_:n3-51 sh:path <http://spdx.org/rdf/terms#checksumValue>;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:datatype xsd:hexBinary;
+    sh:severity sh:Violation.
+_:n3-52 sh:path <http://purl.org/dc/terms/title>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-53 sh:path <http://data.europa.eu/r5rapplicableLegislation>;
+    sh:nodeKind sh:IRI;
+    sh:severity sh:Violation.
+_:n3-54 sh:path <http://www.w3.org/ns/dcat#endpointURL>;
+    sh:minCount 1;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-55 sh:path <http://www.w3.org/ns/dcat#servesDataset>;
+    sh:severity sh:Violation.
+_:n3-56 sh:path <http://purl.org/dc/terms/description>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-57 sh:path <http://www.w3.org/ns/dcat#endpointDescription>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-58 sh:path <http://purl.org/dc/terms/license>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-59 sh:path <http://purl.org/dc/terms/accessRights>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-60 sh:path <http://purl.org/dc/terms/description>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-61 sh:path <http://data.europa.eu/r5rapplicableLegislation>;
+    sh:nodeKind sh:IRI;
+    sh:severity sh:Violation.
+_:n3-62 sh:path <http://purl.org/dc/terms/title>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-63 sh:path <http://purl.org/dc/terms/identifier>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-64 sh:path <http://www.w3.org/ns/dcat#contactPoint>;
+    sh:severity sh:Violation.
+_:n3-65 sh:path <http://www.w3.org/ns/dcat#distribution>;
+    sh:severity sh:Violation.
+_:n3-66 sh:path <http://www.w3.org/ns/dcat#keyword>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-67 sh:path <http://purl.org/dc/terms/publisher>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-68 sh:path <http://purl.org/dc/terms/spatial>;
+    sh:severity sh:Violation.
+_:n3-69 sh:path <http://purl.org/dc/terms/temporal>;
+    sh:severity sh:Violation.
+_:n3-70 sh:path <http://www.w3.org/ns/dcat#theme>;
+    sh:severity sh:Violation.
+_:n3-71 sh:path <http://purl.org/dc/terms/accessRights>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-72 sh:path <http://purl.org/dc/terms/accrualPeriodicity>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-73 sh:path <http://purl.org/dc/terms/conformsTo>;
+    sh:severity sh:Violation.
+_:n3-74 sh:path <http://purl.org/dc/terms/hasVersion>;
+    sh:severity sh:Violation.
+_:n3-75 sh:path <http://purl.org/dc/terms/isVersionOf>;
+    sh:severity sh:Violation.
+_:n3-76 sh:path <http://purl.org/dc/terms/issued>;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:shape dcatap:DateOrDateTimeDataType_Shape.
+_:n3-77 sh:path <http://purl.org/dc/terms/language>;
+    sh:severity sh:Violation.
+_:n3-78 sh:path <http://purl.org/dc/terms/modified>;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:shape dcatap:DateOrDateTimeDataType_Shape.
+_:n3-79 sh:path <http://purl.org/dc/terms/provenance>;
+    sh:severity sh:Violation.
+_:n3-80 sh:path <http://purl.org/dc/terms/relation>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-81 sh:path <http://purl.org/dc/terms/source>;
+    sh:severity sh:Violation.
+_:n3-82 sh:path <http://purl.org/dc/terms/type>;
+    sh:severity sh:Violation.
+_:n3-83 sh:path owl:versionInfo;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-84 sh:path <http://www.w3.org/ns/adms#versionNotes>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-85 sh:path <http://www.w3.org/ns/adms#identifier>;
+    sh:severity sh:Violation.
+_:n3-86 sh:path <http://www.w3.org/ns/adms#sample>;
+    sh:severity sh:Violation.
+_:n3-87 sh:path <http://www.w3.org/ns/dcat#landingPage>;
+    sh:severity sh:Violation.
+_:n3-88 sh:path <http://xmlns.com/foaf/0.1/page>;
+    sh:severity sh:Violation.
+_:n3-89 sh:path <http://www.w3.org/ns/dcat#qualifiedRelation>;
+    sh:severity sh:Violation.
+_:n3-90 sh:path <http://purl.org/dc/terms/isReferencedBy>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-91 sh:path <http://www.w3.org/ns/prov#qualifiedAttribution>;
+    sh:severity sh:Violation.
+_:n3-92 sh:path <http://www.w3.org/ns/prov#wasGeneratedBy>;
+    sh:severity sh:Violation.
+_:n3-93 sh:path <http://www.w3.org/ns/dcat#temporalResolution>;
+    sh:maxCount 1;
+    sh:datatype xsd:duration;
+    sh:severity sh:Violation.
+_:n3-94 sh:path <http://www.w3.org/ns/dcat#spatialResolutionInMeters>;
+    sh:maxCount 1;
+    sh:datatype xsd:decimal;
+    sh:severity sh:Violation.
+_:n3-95 sh:path <http://purl.org/dc/terms/creator>;
+    sh:severity sh:Violation.
+_:n3-96 rdf:first _:n3-97;
+    rdf:rest _:n3-98.
+_:n3-97 sh:datatype xsd:date.
+_:n3-98 rdf:first _:n3-99;
+    rdf:rest _:n3-100.
+_:n3-99 sh:datatype xsd:dateTime.
+_:n3-100 rdf:first _:n3-101;
+    rdf:rest _:n3-102.
+_:n3-101 sh:datatype xsd:gYear.
+_:n3-102 rdf:first _:n3-103;
+    rdf:rest rdf:nil.
+_:n3-103 sh:datatype xsd:gYearMonth.
+_:n3-104 rdf:first _:n3-105;
+    rdf:rest _:n3-106.
+_:n3-105 sh:class <http://www.w3.org/ns/dcat#Catalog>.
+_:n3-106 rdf:first _:n3-107;
+    rdf:rest _:n3-108.
+_:n3-107 sh:class <http://www.w3.org/ns/dcat#Dataset>.
+_:n3-108 rdf:first _:n3-109;
+    rdf:rest rdf:nil.
+_:n3-109 sh:class <http://www.w3.org/ns/dcat#DataService>.
+_:n3-110 sh:path <http://purl.org/dc/terms/conformsTo>;
+    sh:severity sh:Violation.
+_:n3-111 sh:path <http://data.europa.eu/r5rapplicableLegislation>;
+    sh:nodeKind sh:IRI;
+    sh:severity sh:Violation.
+_:n3-112 sh:path <http://purl.org/dc/terms/issued>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-113 sh:path <http://purl.org/dc/terms/language>;
+    sh:severity sh:Violation.
+_:n3-114 sh:path <http://purl.org/dc/terms/modified>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-115 sh:path <http://purl.org/dc/terms/rights>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-116 sh:path <http://purl.org/dc/terms/title>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-117 sh:path <http://spdx.org/rdf/terms#checksum>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-118 sh:path <http://www.w3.org/ns/adms#status>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-119 sh:path <http://www.w3.org/ns/dcat#byteSize>;
+    sh:maxCount 1;
+    sh:datatype xsd:decimal;
+    sh:severity sh:Violation.
+_:n3-120 sh:path <http://www.w3.org/ns/dcat#downloadURL>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-121 sh:path <http://www.w3.org/ns/dcat#mediaType>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-122 sh:path <http://xmlns.com/foaf/0.1/page>;
+    sh:severity sh:Violation.
+_:n3-123 sh:path <http://www.w3.org/ns/odrl/2/hasPolicy>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-124 sh:path <http://www.w3.org/ns/dcat#accessService>;
+    sh:severity sh:Violation.
+_:n3-125 sh:path <http://www.w3.org/ns/dcat#compressFormat>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-126 sh:path <http://www.w3.org/ns/dcat#packageFormat>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-127 sh:path <http://www.w3.org/ns/dcat#temporalResolution>;
+    sh:maxCount 1;
+    sh:datatype xsd:duration;
+    sh:severity sh:Violation.
+_:n3-128 sh:path <http://www.w3.org/ns/dcat#spatialResolutionInMeters>;
+    sh:maxCount 1;
+    sh:datatype xsd:decimal;
+    sh:severity sh:Violation.
+_:n3-129 sh:path <http://www.w3.org/ns/dcat#accessURL>;
+    sh:minCount 1;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-130 sh:path <http://purl.org/dc/terms/description>;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-131 sh:path <http://data.europa.eu/r5ravailability>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-132 sh:path <http://purl.org/dc/terms/format>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-133 sh:path <http://purl.org/dc/terms/license>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+dcatap:Identifier_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/adms#Identifier>;
+    sh:property _:n3-134;
+    rdfs:label "Identifier"@en.
+_:n3-134 sh:path <http://www.w3.org/2004/02/skos/core#notation>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+dcatap:LicenceDocument_Shape a sh:NodeShape;
+    sh:targetClass <http://purl.org/dc/terms/LicenseDocument>;
+    sh:property _:n3-135;
+    rdfs:label "Licence Document"@en.
+_:n3-135 sh:path <http://purl.org/dc/terms/type>;
+    sh:severity sh:Violation.
+dcatap:Location_Shape a sh:NodeShape;
+    sh:targetClass <http://purl.org/dc/terms/Location>;
+    sh:property _:n3-136, _:n3-137, _:n3-138;
+    rdfs:label "Location"@en.
+_:n3-136 sh:path <http://www.w3.org/ns/dcat#bbox>;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-137 sh:path <http://www.w3.org/ns/dcat#centroid>;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-138 sh:path <http://www.w3.org/ns/locn#geometry>;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+dcatap:PeriodOfTime_Shape a sh:NodeShape;
+    sh:targetClass <http://purl.org/dc/terms/PeriodOfTime>;
+    sh:property _:n3-139, _:n3-140, _:n3-141, _:n3-142;
+    rdfs:label "PeriodOfTime"@en.
+_:n3-139 sh:path <http://www.w3.org/ns/dcat#endDate>;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:shape dcatap:DateOrDateTimeDataType_Shape.
+_:n3-140 sh:path <http://www.w3.org/2006/time#hasBeginning>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-141 sh:path <http://www.w3.org/2006/time#hasEnd>;
+    sh:maxCount 1;
+    sh:severity sh:Violation.
+_:n3-142 sh:path <http://www.w3.org/ns/dcat#startDate>;
+    sh:maxCount 1;
+    sh:severity sh:Violation;
+    sh:shape dcatap:DateOrDateTimeDataType_Shape.
+dcatap:Relationship_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#Relationship>;
+    sh:property _:n3-143, _:n3-144;
+    rdfs:label "Relationship"@en.
+_:n3-143 sh:path <http://purl.org/dc/terms/relation>;
+    sh:minCount 1;
+    sh:severity sh:Violation.
+_:n3-144 sh:path <http://www.w3.org/ns/dcat#hadRole>;
+    sh:minCount 1;
+    sh:severity sh:Violation.
+dcatap:DatasetSeries_Shape a sh:NodeShape;
+    sh:targetClass <http://www.w3.org/ns/dcat#DatasetSeries>;
+    sh:property _:n3-145, _:n3-146, _:n3-147, _:n3-148, _:n3-149, _:n3-150, _:n3-151, _:n3-152, _:n3-153, _:n3-154, _:n3-155;
+    rdfs:label "Dataset Series"@en.
+_:n3-145 sh:minCount 1;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Warning;
+    sh:inversePath <http://www.w3.org/ns/dcat#inSeries>.
+_:n3-146 sh:path <http://data.europa.eu/r5rapplicableLegislation>;
+    sh:nodeKind sh:IRI;
+    sh:severity sh:Violation.
+_:n3-147 sh:path <http://purl.org/dc/terms/spatial>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-148 sh:path <http://purl.org/dc/terms/accrualPeriodicity>;
+    sh:maxCount 1;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-149 sh:path <http://purl.org/dc/terms/title>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-150 sh:path <http://purl.org/dc/terms/description>;
+    sh:minCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-151 sh:path <http://purl.org/dc/terms/issued>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-152 sh:path <http://purl.org/dc/terms/modified>;
+    sh:node dcatap:DateOrDateTimeDataType_Shape;
+    sh:maxCount 1;
+    sh:nodeKind sh:Literal;
+    sh:severity sh:Violation.
+_:n3-153 sh:path <http://purl.org/dc/terms/publisher>;
+    sh:maxCount 1;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-154 sh:path <http://www.w3.org/ns/dcat#contactPoint>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
+_:n3-155 sh:path <http://purl.org/dc/terms/temporal>;
+    sh:nodeKind sh:BlankNodeOrIRI;
+    sh:severity sh:Violation.
