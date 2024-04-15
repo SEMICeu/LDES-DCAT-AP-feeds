@@ -48,39 +48,50 @@ _:n3-6 rdf:first dcatap:Catalog_Shape;
 dcatap:Catalog_Shape a sh:NodeShape;
     sh:targetClass <http://www.w3.org/ns/dcat#Catalog>;
     sh:property _:n3-29, _:n3-30, _:n3-31, _:n3-32, _:n3-33, _:n3-34, _:n3-35, _:n3-36, _:n3-37, _:n3-38, _:n3-39, _:n3-40, _:n3-41, _:n3-42, _:n3-43, _:n3-44, _:n3-45, _:n3-46, _:n3-47;
-    rdfs:label "Catalog"@en.
+    rdfs:label "Catalog"@en;
+    sh:class <http://www.w3.org/ns/dcat#Catalog>.
 _:n3-7 rdf:first dcatap:Dataset_Shape;
     rdf:rest _:n3-8.
 dcatap:Dataset_Shape a sh:NodeShape;
     sh:targetClass <http://www.w3.org/ns/dcat#Dataset>;
     sh:property _:n3-60, _:n3-61, _:n3-62, _:n3-63, _:n3-64, _:n3-65, _:n3-66, _:n3-67, _:n3-68, _:n3-69, _:n3-70, _:n3-71, _:n3-72, _:n3-73, _:n3-74, _:n3-75, _:n3-76, _:n3-77, _:n3-78, _:n3-79, _:n3-80, _:n3-81, _:n3-82, _:n3-83, _:n3-84, _:n3-85, _:n3-86, _:n3-87, _:n3-88, _:n3-89, _:n3-90, _:n3-91, _:n3-92, _:n3-93, _:n3-94, _:n3-95;
-    rdfs:label "Dataset"@en.
+    rdfs:label "Dataset"@en;
+    sh:class <http://www.w3.org/ns/dcat#Dataset>.
 _:n3-8 rdf:first dcatap:Distribution_Shape;
     rdf:rest _:n3-9.
 dcatap:Distribution_Shape a sh:NodeShape;
     sh:targetClass <http://www.w3.org/ns/dcat#Distribution>;
     sh:property _:n3-110, _:n3-111, _:n3-112, _:n3-113, _:n3-114, _:n3-115, _:n3-116, _:n3-117, _:n3-118, _:n3-119, _:n3-120, _:n3-121, _:n3-122, _:n3-123, _:n3-124, _:n3-125, _:n3-126, _:n3-127, _:n3-128, _:n3-129, _:n3-130, _:n3-131, _:n3-132, _:n3-133;
-    rdfs:label "Distribution"@en.
+    rdfs:label "Distribution"@en;
+    sh:class <http://www.w3.org/ns/dcat#Distribution>.
 _:n3-9 rdf:first dcatap:DataService_Shape;
     rdf:rest _:n3-10.
 dcatap:DataService_Shape a sh:NodeShape;
     sh:targetClass <http://www.w3.org/ns/dcat#DataService>;
     sh:property _:n3-52, _:n3-53, _:n3-54, _:n3-55, _:n3-56, _:n3-57, _:n3-58, _:n3-59;
-    rdfs:label "Data Service"@en.
+    rdfs:label "Data Service"@en;
+    sh:class <http://www.w3.org/ns/dcat#DataService>.
 _:n3-10 rdf:first dcatap:Agent_Shape;
     rdf:rest _:n3-11.
 dcatap:Agent_Shape a sh:NodeShape;
     sh:targetClass <http://xmlns.com/foaf/0.1/Agent>;
     sh:property _:n3-18, _:n3-19;
-    rdfs:label "Agent"@en.
+    rdfs:label "Agent"@en;
+    sh:class <http://xmlns.com/foaf/0.1/Agent>.
 _:n3-11 rdf:first dcatap:Kind_Shape;
     rdf:rest _:n3-12.
 dcatap:Kind_Shape a sh:NodeShape;
     sh:targetClass vcard:Kind;
     rdfs:label "Kind"@en;
-    rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes".
+    rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes";
+    sh:class vcard:Kind.
 _:n3-12 rdf:first dcatap:LicenseDocument_Shape;
     rdf:rest rdf:nil.
+dcatap:LicenseDocument_Shape a sh:NodeShape;
+    sh:targetClass <http://purl.org/dc/terms/LicenseDocument>;
+    rdfs:label "LicenseDocument"@en;
+    rdfs:comment "Placeholder shape for dcterms:LicenseDocument, currently not present in DCAT-AP v3 shapes";
+    sh:class <http://purl.org/dc/terms/LicenseDocument>.
 <http://data.europa.eu/r5r/shacl_shapes> <http://www.w3.org/ns/dcat#accessURL> <https://joinup.ec.europa.eu/solution/dcat-application-profile-data-portals-europe/distribution/dcat-ap-200-shacl-shapes>;
     <http://www.w3.org/ns/dcat#downloadURL> <https://github.com/SEMICeu/DCAT-AP/raw/cea5a96bb4a6f120c20b7a2b3fb4d86bcd725952/releases/2.0.0/Draft/dcat-ap_2.0.0_shacl_shapes.ttl>;
     <http://data.europa.eu/r5ravailability> <http://data.europa.eu/r5r/stable>;
