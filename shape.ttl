@@ -8,6 +8,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 dcatapfeeds: owl:imports <https://semiceu.github.io/DCAT-AP/releases/3.0.0/html/shacl/shapes.ttl> .
 
@@ -51,4 +54,17 @@ dcatapfeeds:EntityShape a sh:NodeShape ;
 dcatap:Kind_Shape a sh:NodeShape ;
     rdfs:label "Kind"@en ;
     rdfs:comment "Placeholder shape for vcard:Kind, currently not present in DCAT-AP v3 shapes" ;
-    sh:targetClass vcard:Kind .
+    sh:targetClass vcard:Kind ;
+    sh:class vcard:Kind .
+
+dcatap:LicenseDocument_Shape a sh:NodeShape ;
+    rdfs:label "LicenseDocument"@en ;
+    rdfs:comment "Placeholder shape for dcterms:LicenseDocument, currently not present in DCAT-AP v3 shapes" ;
+    sh:targetClass dcterms:LicenseDocument ;
+    sh:class dcterms:LicenseDocument .
+
+dcatap:Catalog_Shape sh:class dcat:Catalog .
+dcatap:Dataset_Shape sh:class dcat:Dataset .
+dcatap:Distribution_Shape sh:class dcat:Distribution .
+dcatap:DataService_Shape sh:class dcat:DataService .
+dcatap:Agent_Shape sh:class foaf:Agent .
