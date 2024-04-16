@@ -31,7 +31,7 @@ _:n3-3 sh:path as:object;
     sh:minCount 1;
     sh:maxCount 1.
 dcatapfeeds:EntityShape a sh:NodeShape;
-    sh:xone _:n3-6.
+    sh:or _:n3-6.
 dcatapfeeds:PublishedPropertyShape a sh:PropertyShape;
     sh:path as:published;
     sh:minCount 0;
@@ -144,20 +144,20 @@ _:n3-20 sh:path <http://xmlns.com/foaf/0.1/primaryTopic>;
     sh:maxCount 1;
     sh:severity sh:Violation.
 dcatap:DcatResource_Shape a sh:NodeShape;
+    sh:or _:n3-104;
     rdfs:label "dcat:Resource";
     rdfs:comment "the union of Catalog, Dataset and DataService";
-    sh:message "The node is either a Catalog, Dataset or a DataService";
-    sh:or _:n3-104.
+    sh:message "The node is either a Catalog, Dataset or a DataService".
 _:n3-21 sh:path <http://purl.org/dc/terms/modified>;
     sh:minCount 1;
     sh:maxCount 1;
     sh:severity sh:Violation;
     sh:shape dcatap:DateOrDateTimeDataType_Shape.
 dcatap:DateOrDateTimeDataType_Shape a sh:NodeShape;
+    sh:or _:n3-96;
     rdfs:label "Date time date disjunction";
     rdfs:comment "Date time date disjunction shape checks that a datatype property receives a temporal value: date, dateTime, gYear or gYearMonth literal";
-    sh:message "The values must be data typed as either xsd:date, xsd:dateTime, xsd:gYear or xsd:gYearMonth";
-    sh:or _:n3-96.
+    sh:message "The values must be data typed as either xsd:date, xsd:dateTime, xsd:gYear or xsd:gYearMonth".
 _:n3-22 sh:path <http://purl.org/dc/terms/conformsTo>;
     sh:maxCount 1;
     sh:severity sh:Violation.
