@@ -49,7 +49,7 @@ dcatapfeeds:PublishedPropertyShape a sh:PropertyShape ;
 
 
 dcatapfeeds:EntityShape a sh:NodeShape ;
-    sh:xone ( dcatap:Catalog_Shape dcatap:Dataset_Shape dcatap:Distribution_Shape dcatap:DataService_Shape dcatap:Agent_Shape dcatap:Kind_Shape dcatap:LicenseDocument_Shape ) .
+    sh:or ( dcatap:Catalog_Shape dcatap:Dataset_Shape dcatap:Distribution_Shape dcatap:DataService_Shape dcatap:Agent_Shape dcatap:Kind_Shape dcatap:LicenseDocument_Shape ) .
 
 dcatap:Kind_Shape a sh:NodeShape ;
     rdfs:label "Kind"@en ;
