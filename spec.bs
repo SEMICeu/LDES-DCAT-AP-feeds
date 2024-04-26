@@ -215,13 +215,9 @@ Without further explanation, a server publishing a Linked Data Event Stream (LDE
 In DCAT-AP Feeds, harvesters are generally not interested in the full history.
 Therefore we recommend only keeping the latest activity (the create, updates, and remove entities) about an entity in the feed, yet transparently indicating this retention policy.
 
+Note: It may also be possible that the data catalog does not keep track of the deleted entities. In this case, it will be impossible to provide the delete activities. While it is not recommended, we will propose an implicit remove retention policy in the LDES specification. This is currently not supported though.
 
-It may also be possible that the data catalog does not keep track of the removed entities.
-In this case, it will be impossible to probide the remove activities.
-While it is not recommended, in this case, a DCAT-AP Feeds provider MUST document the implicit remove retention policy.
-
-Having to keep remove activities indefinetily will be difficult after a long period of time. 
-Therefore a third retention policy can be put in place in order to say that deletions are not kept in the feed after a certain period of time.
+Note: Also having to keep delete activities indefinetily will be difficult after a long period of time. Therefore a third retention policy will be able to be put in place in order to say that deletions are not kept in the feed after a certain period of time. This is also not supported at this time, but proposed to the LDES specification.
 
 ### LatestVersionSubset with deletions ### {#latest-version}
 
@@ -273,20 +269,6 @@ Or in JSON-LD:
 ```
 
 </div>
-
-### Without Delete Activities ### {#without-deleted}
-
-When this retention policy is in place, a harvester MUST check for implicit deletions.
-
-Issue: A `ldes:ImplicitDeletionPolicy` has been proposed that will force LDES clients to check for deleted members: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
-
-### Partial remove activities ### {#some-removes}
-
-The list of removed datasets can get quite big in the long run without big benefits.
-You MAY indicate to a harvester that you will only publish remove activities for a specific duration,
-but publish all latest version of anything else.
-
-Issue: This feature is under discussion as this cannot currently be processed in LDES: https://github.com/SEMICeu/LinkedDataEventStreams/issues/50
 
 ## Pagination ## {#pagination}
 
