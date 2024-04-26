@@ -165,7 +165,6 @@ Note: LDES feed publishers should not add references to standalone entities befo
 
 Note: Any `dcat:CatalogRecord` entities can be provided as part the `dcat:Dataset` entity. Alternatively, and perhaps more appropriately, the event itself could be seen as an `dcat:CatalogRecord` with modification date and other useful information.
 
-
 ### Standalone entities
 
 The main entity types are identified based on their class:
@@ -277,9 +276,14 @@ Or in JSON-LD:
 
 ## Pagination ## {#pagination}
 
-TODO:
- * Strategies
- * Caching headers!
+A DCAT-AP Feed MAY have multiple views.
+The main view the DCAT-AP Feed MUST publish is a DCAT-AP Feed source.
+A DCAT-AP Feed source MAY follow any TREE relation structure it desires.
+A DCAT-AP Feed source SHOULD however use a search tree based on the `as:published` timestamp. 
+Depending on the amount of updates the DCAT-AP Feed is expected to have, one can play with the granularity.
+For example, a search tree could be create where on the first level you can select the year, the second you can select the month, then day, and then hour.
+
+A link to a lower lever can be achieved using two relations to the same node, one specifying the lower bound, and another the upper, as follows:
 
 <div class="example">
 
@@ -300,13 +304,12 @@ TODO:
     tree:view : .
 
 : tree:viewDescription [
-    #recommended: a retention policy to only keep the last update about a thing
         ldes:retentionPolicy [
             a ldes:LatestVersionSubset ;
-            ldes:amount 1    
+            ldes:amount 1
         ]
     ] ;
-    # Recommended: multiple pages in a B-tree fragmentation
+    # Recommended: multiple pages in a chronological search-tree fragmentation
     tree:relation [
         a tree:GreaterThanOrEqualToRelation ;
         tree:path as:published ;
@@ -325,13 +328,16 @@ TODO:
 ```
 </div>
 
+A DCAT-AP Feed view SHOULD for every page provide an accurate `Cache-control` header.
+In case the page (such as the root and the pages on the right of the search tree) can still update, an etag header SHOULD be provided and conditional caching SHOULD be supported.
+For pages that will not change any longer, a `Cache-Control: public, max-age=604800, immutable` header SHOULD be set.
 
 # Publishing a harverster’s event log # {#harverster-log}
 
 A DCAT-AP feeds harvester consumes one or more DCAT-AP Feeds.
 In order to do so, it SHOULD use an LDES compliant client.
 For the emitted objects by such an LDES client, the harvester can count on the fact that the official SHACL shape validates.
-The payload of an update will be contained within the 
+The payload of an update will be contained within the named graph that has the same IRI as the member.
 
 A harvester SHOULD publish the status of their logging on a page.
 
