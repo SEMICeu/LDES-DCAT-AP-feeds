@@ -179,6 +179,11 @@ The main entity types are identified based on their class:
 * `dcterms:LicenseDocument` - only use this when you need to define licenses that are not well known.
 
 Note: Only standalone entities that could be part of exactly one other standalone entity -- although not recommended -- can instead be optionally included in the parent standalone entity, allowing the option of having a blank node for that standalone entity that now becomes an embedded entity. This for example allows to embed a `dcat:Distribution` 
+
+Standalone entities MUST be a named node and cannot be a blank node. A harvester SHOULD use this IRI to know where to upsert entities.
+
+Note: Double typing entities is not explicitely disallowed. It thus is possible something is both a `dcat:Catalog` and a `dcat:DataService` for example.
+
 ### Embedded entities
 The embedded entity types are identified based on their class:
 
