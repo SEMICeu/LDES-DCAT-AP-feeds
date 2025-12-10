@@ -109,6 +109,7 @@ Or the same data in TRiG:
         tree:shape <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape> ;
         dct:title "My DCAT-AP Feed" ;
         ldes:timestampPath as:published ;
+        ldes:versionOfPath as:object ;
         tree:view <> ;
         tree:member <https://example.org/Dataset1#Event1>, <https://example.org/Dataset1#Event2> .
 
@@ -142,6 +143,8 @@ This context information MUST be present:
         tree:shape <https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape> ;
         # Indicating the timestampPath will be as:published
         ldes:timestampPath as:published ;
+        # Indicating the versionOfPath will be as:object
+        ldes:versionOfPath as:object ;
         # The current page is a page of this event stream
         tree:view <> ;  # See pagination and retention policies for extra controls we will be able to describe here
         # a link to all members
