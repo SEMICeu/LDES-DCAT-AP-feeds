@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>The LDES DCAT-AP Feed specification</title>
+  <title>The DCAT-AP Feed specification</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1488,9 +1488,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
+  <meta content="Bikeshed version 3c53a5b02, updated Thu Nov 27 17:03:30 2025 +0000" name="generator">
   <link href="https://semiceu.github.io/LDES-DCAT-AP-feeds/index.html" rel="canonical">
-  <meta content="e1c91cbbf88eb4c820ff7ce274e3ccf4c78490bd" name="document-revision">
+  <meta content="820a40699885b555f51e4dee95c9d55cd9c1825b" name="revision">
+  <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -1562,7 +1563,6 @@ pre .property::before, pre .property::after {
 }
 </style>
 <style>/* Boilerplate: style-colors */
-
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
     color-scheme: light dark;
@@ -1802,7 +1802,7 @@ body {
 }
 .invalid.example:not(.no-marker)::before,
 .illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
+    content: "Invalid Example " counter(example);
 }
 
 figcaption {
@@ -1832,7 +1832,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* Boilerplate: style-selflinks */
-
 :root {
     --selflink-text: white;
     --selflink-bg: gray;
@@ -1892,7 +1891,6 @@ a.self-link::before            { content: "¶"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
 <style>/* Boilerplate: style-syntax-highlighting */
-
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
 
@@ -1949,7 +1947,6 @@ c-[vc] { color: #0077aa } /* Name.Variable.Class */
 c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -2017,8 +2014,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">The LDES DCAT-AP Feed specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2024-04-26">26 April 2024</time></span></h2>
+   <h1 class="no-ref p-name" id="title">The DCAT-AP Feed specification</h1>
+   <h2 class="heading no-num no-ref no-toc settled" id="profile-and-date"><span class="content">Living Standard,
+    <time class="dt-updated" datetime="2026-01-09">9 January 2026</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2026,32 +2024,34 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dt>Issue Tracking:
      <dd><a href="https://github.com/SEMICeu/LDES-DCAT-AP-feeds/issues/">GitHub</a>
      <dt class="editor">Editors:
-     <dd class="editor p-author h-card vcard"><span class="p-name fn"></span>
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://pietercolpaert.be">- Pieter Colpaert</a>
-     <dd class="editor p-author h-card vcard"><span class="p-name fn">- Matthias Palmér</span>
+     <dd class="editor h-card p-author vcard"><span class="fn p-name"></span>
+     <dd class="editor h-card p-author vcard"><a class="fn p-name u-url url" href="https://pietercolpaert.be">- Pieter Colpaert</a>
+     <dd class="editor h-card p-author vcard"><span class="fn p-name">- Matthias Palmér</span>
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
+   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a>
+To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 26 April 2024,
-the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
-which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
-Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
+In addition, as of 9 January 2026,
+the editors have made this specification available under the
+<a href="https://www.openwebfoundation.org/the-agreements/the-owf-1-0-agreements-granted-claims/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
+which is available at https://www.openwebfoundation.org/the-agreements/the-owf-1-0-agreements-granted-claims/owfa-1-0.
+Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document.
+</p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
-   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <h2 class="heading no-num no-ref no-toc settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>Publishing a full data dump repetitevely will delegate change detection -- a fault-prone process -- to data consumers.
-
-    With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
-    Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
-    It also provides a specification for harvesters to provide transparency into their harvesting progress.</p>
+With DCAT-AP Feeds we propose that DCAT-AP catalog maintainers publish an event source API that can help to replicate the catalog towards a harvester, and always keep it in-sync in the way that is intended by the publisher.
+Therefore, this spec describes how to publish your DCAT-AP entity changes using the Activity Streams vocabulary and LDES.
+It also provides a specification for harvesters to provide transparency into their harvesting progress.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
-   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
-   <ol class="toc" role="directory">
+   <h2 class="no-num no-ref no-toc" id="contents">Table of Contents</h2>
+   <ol class="toc">
     <li>
      <a href="#feed"><span class="secno">1</span> <span class="content">Publishing changes about DCAT-AP entities</span></a>
      <ol class="toc">
@@ -2070,7 +2070,8 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#pagination"><span class="secno">1.3</span> <span class="content">Pagination</span></a>
      </ol>
     <li><a href="#harverster-log"><span class="secno">2</span> <span class="content">Publishing a harverster’s event log</span></a>
-    <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
+    <li><a href="#conformance"><span class="secno"></span> <span class="content">
+    Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
@@ -2107,10 +2108,12 @@ On a DCAT-AP Feed, the <code>timestampPath</code> MUST be set to <code>published
 The <code>versionOfPath</code> MUST be set to object.
 This configures the property that will be used to point to the entity that is being altered.</p>
    <p>A DCAT-AP Feed harvester SHOULD implement the full LDES specification, or re-use an existing LDES Client.</p>
-   <div class="example" id="example-4d1fa365">
-    <a class="self-link" href="#example-4d1fa365"></a> 
+   <div class="example" id="example-105b42af">
+    <a class="self-link" href="#example-105b42af"></a>
+
+
     <p><a href="https://json-ld.org/playground/#startTab=tab-nquads&amp;json-ld=%7B%22%40context%22%3A%7B%22ldes%22%3A%22https%3A%2F%2Fw3id.org%2Fldes%23%22%2C%22tree%22%3A%22https%3A%2F%2Fw3id.org%2Ftree%23%22%2C%22as%22%3A%22https%3A%2F%2Fwww.w3.org%2Fns%2Factivitystreams%23%22%2C%22dct%22%3A%22http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%22%2C%22xsd%22%3A%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%22%2C%22EventStream%22%3A%22ldes%3AEventStream%22%2C%22shape%22%3A%7B%22%40id%22%3A%22tree%3Ashape%22%2C%22%40type%22%3A%22%40id%22%7D%2C%22title%22%3A%22dct%3Atitle%22%2C%22timestampPath%22%3A%22ldes%3AtimestampPath%22%2C%22versionOfPath%22%3A%22ldes%3AversionOfPath%22%2C%22view%22%3A%22tree%3Aview%22%2C%22member%22%3A%22tree%3Amember%22%2C%22Create%22%3A%22as%3ACreate%22%2C%22Delete%22%3A%22as%3ADelete%22%2C%22Update%22%3A%22as%3AUpdate%22%2C%22published%22%3A%22as%3Apublished%22%2C%22object%22%3A%22as%3Aobject%22%2C%22dcat%22%3A%22http%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%22%7D%2C%22%40id%22%3A%22%23Feed%22%2C%22%40type%22%3A%22EventStream%22%2C%22shape%22%3A%22https%3A%2F%2Fsemiceu.github.io%2FLDES-DCAT-AP-feeds%2Fshape.ttl%23ActivityShape%22%2C%22title%22%3A%22My%20DCAT-AP%20Feed%22%2C%22timestampPath%22%3A%22published%22%2C%22versionOfPath%22%3A%22object%22%2C%22view%22%3A%7B%22%40id%22%3A%22%22%2C%22comment%22%3A%22we%E2%80%99re%20going%20to%20put%20the%20retention%20policy%20here%20--%20see%20later%22%2C%22ldes%3AretentionPolicy%22%3A%7B%22%40type%22%3A%22ldes%3ALatestVersionSubset%22%2C%22ldes%3Aamount%22%3A%221%22%7D%7D%2C%22member%22%3A%5B%7B%22%40id%22%3A%22https%3A%2F%2Fexample.org%2FDataset1%23Event1%22%2C%22%40type%22%3A%22Create%22%2C%22object%22%3A%22https%3A%2F%2Fexample.org%2FDataset1%22%2C%22published%22%3A%222023-10-01T12%3A00%3A00Z%22%2C%22%40graph%22%3A%7B%22%40id%22%3A%22https%3A%2F%2Fexample.org%2FDataset1%22%2C%22%40type%22%3A%22dcat%3ADataset%22%2C%22comment%22%3A%22Everything%20in%20here%20is%20the%20actual%20data%20that%20needs%20to%20be%20upserted%22%7D%7D%2C%7B%22%40id%22%3A%22https%3A%2F%2Fexample.org%2FDataset1%23Event2%22%2C%22%40type%22%3A%22Delete%22%2C%22object%22%3A%22https%3A%2F%2Fexample.org%2FDataset1%22%2C%22published%22%3A%222023-10-01T13%3A00%3A00Z%22%7D%5D%7D">A JSON-LD example</a>:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
     <c- f>"@context"</c-> <c- p>:</c-> <c- p>{</c->
       <c- f>"ldes"</c-><c- p>:</c-> <c- u>"https://w3id.org/ldes#"</c-><c- p>,</c->
       <c- f>"tree"</c-><c- p>:</c-> <c- u>"https://w3id.org/tree#"</c-><c- p>,</c->
@@ -2163,10 +2166,11 @@ This configures the property that will be used to point to the entity that is be
 <c- p>}</c->
 </pre>
     <p>Or the same data in TRiG:</p>
-<pre class="language-turtle highlight"><c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
+<pre class="highlight language-turtle"><c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
         <c- nn>dct</c-><c- p>:</c-><c- f>title</c-> <c- s>"My DCAT-AP Feed"</c-> <c- p>;</c->
         <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
+        <c- nn>ldes</c-><c- p>:</c-><c- f>versionOfPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>object</c-> <c- p>;</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>member</c-> <c- g>&lt;https://example.org/Dataset1#Event1></c-><c- p>,</c-> <c- g>&lt;https://example.org/Dataset1#Event2></c-> <c- p>.</c->
 
@@ -2189,12 +2193,14 @@ This configures the property that will be used to point to the entity that is be
 In this spec, examples are provided for both serializations.
 Through content negotiation, other formats MAY be provided.</p>
    <p>This context information MUST be present:</p>
-<pre class="language-turtle highlight"><c- c># Typing it as an EventStream</c->
+<pre class="highlight language-turtle"><c- c># Typing it as an EventStream</c->
 <c- g>&lt;#Feed></c-> <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>EventStream</c-> <c- p>;</c->
         <c- c># Indicating every member will adhere to the ActivityShape defined by the DCAT-AP-Feeds specification</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>shape</c-> <c- g>&lt;https://semiceu.github.io/LDES-DCAT-AP-feeds/shape.ttl#ActivityShape></c-> <c- p>;</c->
         <c- c># Indicating the timestampPath will be as:published</c->
         <c- nn>ldes</c-><c- p>:</c-><c- f>timestampPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>published</c-> <c- p>;</c->
+        <c- c># Indicating the versionOfPath will be as:object</c->
+        <c- nn>ldes</c-><c- p>:</c-><c- f>versionOfPath</c-> <c- nn>as</c-><c- p>:</c-><c- f>object</c-> <c- p>;</c->
         <c- c># The current page is a page of this event stream</c->
         <c- nn>tree</c-><c- p>:</c-><c- f>view</c-> <c- g>&lt;></c-> <c- p>;</c->  <c- c># See pagination and retention policies for extra controls we will be able to describe here</c->
         <c- c># a link to all members</c->
@@ -2237,7 +2243,10 @@ A DCAT-AP Feeds provider SHOULD test their members before adding them to the fee
    <p>Standalone entities MUST be a named node and cannot be a blank node. A harvester SHOULD use this IRI to know where to upsert entities.</p>
    <p class="note" role="note"><span class="marker">Note:</span> Double typing entities is not explicitely disallowed. It thus is possible something is both a <code>dcat:Catalog</code> and a <code>dcat:DataService</code> for example.</p>
    <h4 class="heading settled" data-level="1.1.2" id="embedded-entities"><span class="secno">1.1.2. </span><span class="content">Embedded entities</span><a class="self-link" href="#embedded-entities"></a></h4>
-    The embedded entity types are identified based on their class: 
+   
+The embedded entity types are identified based on their class:
+
+
    <ul>
     <li data-md>
      <p><code>spdx:Checksum</code></p>
@@ -2295,14 +2304,16 @@ Therefore we recommend only keeping the latest activity (the create, updates, an
    <h4 class="heading settled" data-level="1.2.1" id="latest-version"><span class="secno">1.2.1. </span><span class="content">LatestVersionSubset with deletions</span><a class="self-link" href="#latest-version"></a></h4>
    <p>By adding a latest version subset retention policy, we will allow for only the last activities of an object to be added.</p>
    <div class="example" id="example-a7ca23d1">
-    <a class="self-link" href="#example-a7ca23d1"></a> 
-<pre class="language-turtle highlight"><c- g>&lt;></c-> <c- nn>ldes</c-><c- p>:</c-><c- f>retentionPolicy</c-> <c- p>[</c->
+    <a class="self-link" href="#example-a7ca23d1"></a>
+
+
+<pre class="highlight language-turtle"><c- g>&lt;></c-> <c- nn>ldes</c-><c- p>:</c-><c- f>retentionPolicy</c-> <c- p>[</c->
         <c- b>a</c-> <c- nn>ldes</c-><c- p>:</c-><c- f>LatestVersionSubset</c-> <c- p>;</c->
         <c- nn>ldes</c-><c- p>:</c-><c- f>amount</c-> <c- mi>1</c->    
     <c- p>]</c-> <c- p>.</c->
 </pre>
     <p>Or in JSON-LD:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
     <c- f>"@context"</c-> <c- p>:</c-> <c- p>{</c->
       <c- f>"ldes"</c-><c- p>:</c-> <c- u>"https://w3id.org/ldes#"</c-><c- p>,</c->
       <c- f>"tree"</c-><c- p>:</c-> <c- u>"https://w3id.org/tree#"</c-><c- p>,</c->
@@ -2345,8 +2356,10 @@ Depending on the amount of updates the DCAT-AP Feed is expected to have, one can
 For example, a search tree could be create where on the first level you can select the year, the second you can select the month, then day, and then hour.</p>
    <p>A link to a lower lever can be achieved using two relations to the same node, one specifying the lower bound, and another the upper, as follows:</p>
    <div class="example" id="example-7b553609">
-    <a class="self-link" href="#example-7b553609"></a> 
-<pre class="language-turtle highlight"><c- k>@prefix</c-> <c- nn>:</c-> <c- g>&lt;https://data.example.org/feed></c-> <c- p>.</c->
+    <a class="self-link" href="#example-7b553609"></a>
+
+
+<pre class="highlight language-turtle"><c- k>@prefix</c-> <c- nn>:</c-> <c- g>&lt;https://data.example.org/feed></c-> <c- p>.</c->
 <c- k>@prefix</c-> <c- nn>ldes:</c-> <c- g>&lt;https://w3id.org/ldes#></c-><c- p>.</c->
 <c- k>@prefix</c-> <c- nn>tree:</c-> <c- g>&lt;https://w3id.org/tree#></c-><c- p>.</c->
 <c- k>@prefix</c-> <c- nn>as:</c->  <c- g>&lt;https://www.w3.org/ns/activitystreams#></c-><c- p>.</c->
@@ -2382,6 +2395,7 @@ For example, a search tree could be create where on the first level you can sele
     <c- p>]</c->
     <c- c>#... More relations</c->
     <c- p>.</c->
+
 </pre>
    </div>
    <p>A DCAT-AP Feed view SHOULD for every page provide an accurate <code>Cache-control</code> header.
@@ -2396,21 +2410,37 @@ The payload of an update will be contained within the named graph that has the s
    <p class="note" role="note"><span class="marker">Note:</span> Currently there is no further text on what this status log should look like or how it should be described. We are waiting for consensus on this in the general LDES specification that should be a topic in the SEMIC LDES standardization activity starting September 2024.</p>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
-   <p> Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
+   <h2 class="heading no-num no-ref settled" id="conformance"><span class="content">
+    Conformance</span><a class="self-link" href="#conformance"></a></h2>
+   <p>
+            Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
             The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
             in the normative parts of this document
             are to be interpreted as described in RFC 2119.
             However, for readability,
-            these words do not appear in all uppercase letters in this specification. </p>
-   <p> All of the text of this specification is normative
-            except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
-   <p> Examples in this specification are introduced with the words “for example”
-            or are set apart from the normative text with <code>class="example"</code>, like this: </p>
-   <div class="example" id="example-example"><a class="self-link" href="#example-example"></a> This is an example of an informative example. </div>
-   <p> Informative notes begin with the word “Note”
-            and are set apart from the normative text with <code>class="note"</code>, like this: </p>
-   <p class="note" role="note"> Note, this is an informative note.</p>
+            these words do not appear in all uppercase letters in this specification.
+
+        </p>
+   <p>
+            All of the text of this specification is normative
+            except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a>
+
+        </p>
+   <p>
+            Examples in this specification are introduced with the words “for example”
+            or are set apart from the normative text with <code>class="example"</code>, like this:
+
+        </p>
+   <div class="example" id="example-example"><a class="self-link" href="#example-example"></a>
+            This is an example of an informative example.
+        </div>
+   <p>
+            Informative notes begin with the word “Note”
+            and are set apart from the normative text with <code>class="note"</code>, like this:
+
+        </p>
+   <p class="note" role="note">
+            Note, this is an informative note.</p>
   </div>
 <script>
 (function() {
@@ -2433,7 +2463,7 @@ The payload of an update will be contained within the named graph that has the s
       on = !document.body.classList.contains('toc-sidebar');
     }
 
-    /* Don’t scroll to compensate for the ToC if we’re above it already. */
+    /* Don't scroll to compensate for the ToC if we're above it already. */
     var headY = 0;
     var head = document.querySelector('.head');
     if (head) {
@@ -2464,16 +2494,16 @@ The payload of an update will be contained within the named graph that has the s
       }
       if (toggle.matches(':hover')) {
         /* Unfocus button when not using keyboard navigation,
-           because I don’t know where else to send the focus. */
+           because I don't know where else to send the focus. */
         toggle.blur();
       }
     }
   }
 
   function createSidebarToggle() {
-    /* Create the sidebar toggle in JS; it shouldn’t exist when JS is off. */
+    /* Create the sidebar toggle in JS; it shouldn't exist when JS is off. */
     var toggle = document.createElement('a');
-      /* This should probably be a button, but appearance isn’t standards-track.*/
+      /* This should probably be a button, but appearance isn't standards-track.*/
     toggle.id = 'toc-toggle';
     toggle.class = 'toc-toggle';
     toggle.href = '#toc';
@@ -2489,7 +2519,7 @@ The payload of an update will be contained within the named graph that has the s
     toggle.addEventListener('click', toggler, false);
 
 
-    /* Get <nav id=toc-nav>, or make it if we don’t have one. */
+    /* Get <nav id=toc-nav>, or make it if we don't have one. */
     var tocNav = document.getElementById('toc-nav');
     if (!tocNav) {
       tocNav = document.createElement('p');
@@ -2497,7 +2527,7 @@ The payload of an update will be contained within the named graph that has the s
       /* Prepend for better keyboard navigation */
       document.body.insertBefore(tocNav, document.body.firstChild);
     }
-    /* While we’re at it, make sure we have a Jump to Toc link. */
+    /* While we're at it, make sure we have a Jump to Toc link. */
     var tocJump = document.getElementById('toc-jump');
     if (!tocJump) {
       tocJump = document.createElement('a');
@@ -2525,7 +2555,7 @@ The payload of an update will be contained within the named graph that has the s
     }, false);
   }
   else {
-    console.warn("Can’t find Table of Contents. Please use <nav id='toc'> around the ToC.");
+    console.warn("Can't find Table of Contents. Please use <nav id='toc'> around the ToC.");
   }
 
   /* Wrap tables in case they overflow */
@@ -2541,8 +2571,8 @@ The payload of an update will be contained within the named graph that has the s
 
 })();
 </script>
-  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-activitypub">[ACTIVITYPUB]
    <dd>Christopher Webber; Jessica Tallon. <a href="https://w3c.github.io/activitypub/"><cite>ActivityPub</cite></a>. URL: <a href="https://w3c.github.io/activitypub/">https://w3c.github.io/activitypub/</a>
