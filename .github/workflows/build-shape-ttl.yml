@@ -27,46 +27,45 @@ jobs:
     # In case the workflow was triggered because of the schedule, the DCAT-AP repo must contain new commits to proceed
     if: ${{ github.event_name != 'schedule' || github.steps.check.conclusion == 'success' }}
 
-    defaults:
-      run:
-        working-directory: ./shacl-shapes-generator
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      # Checkout main into a subfolder
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
 
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build the script
-        run: npm run build
 
-      # Runs a single command using the runners shell
-      - name: Fetch the owl:imports, remove the owl:imports triples into shape.ttl
-        run: node .
-
-      # Check out the gh-pages branch
-      - name: Checkout gh-pages branch
+      # Install & Fetch the owl:imports, remove the owl:imports triples into shape.ttl
+      - name: Build shape.ttl
+        run: |
+          cd main/shacl-shapes-generator
+          npm ci
+          npm run build
+          node .
+      
+      # Checkout gh-pages into a separate folder
+      - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
           ref: gh-pages
-
-      # Fetch shape.ttl from the main branch
-      - name: Copy shape.ttl from main branch
-        run: git checkout main -- ./shape.ttl
-
-      # Commit changes to the gh-pages branch
-      - name: Commit changes
+          path: gh-pages
+      
+      # Copy the file
+      - name: Copy shape.ttl to gh-pages
+        run: cp main/shape.ttl gh-pages/shape.ttl
+      
+      # Commit & push
+      - name: Commit and push
         run: |
+          cd gh-pages
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add ./shape.ttl
-          git commit -m "Update shape.ttl" || echo "No changes to commit"
-
-      # Push changes to the gh-pages branch
-      - name: Push changes to gh-pages branch
-        run: git push origin gh-pages
+          git add shape.ttl
+          git commit -m "Update shape.ttl" || echo "No changes"
+          git push origin gh-pages
